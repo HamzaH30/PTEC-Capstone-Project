@@ -38,3 +38,31 @@ p {
     font-family: 'Prompt', sans-serif;
     font-size: 16px;
 }
+
+header {
+    background-color: var(--colour-blue);
+    padding: 1rem 1.5rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+nav img {
+    width: 50%;
+}
+
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.hamburger-menu span {
+    display: inline-block;
+    background-color: black;
+    width: 20px;
+    height: 7.5px;
+}
