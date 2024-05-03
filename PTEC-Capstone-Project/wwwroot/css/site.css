@@ -41,6 +41,7 @@ p {
 
 body {
   background-color: var(--colour-dark-gunmetal);
+  color: white;
 }
 
 header,
