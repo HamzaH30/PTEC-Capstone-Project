@@ -39,7 +39,12 @@ p {
     font-size: 16px;
 }
 
-header {
+body {
+    background-color: var(--colour-dark-gunmetal);
+}
+
+header,
+footer {
     background-color: var(--colour-blue);
     padding: 1rem 1.5rem;
 }
