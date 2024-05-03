@@ -1,73 +1,101 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 
 :root {
-    /* Main Brand Colour */
-    --colour-blue: #22AAA1;
-    /* Light Shades - Background */
-    --colour-white: #E6E8E6;
-    /* Light Accent */
-    --colour-dark-purple: #2F2235;
-    /* Dark Accent */
-    --colour-orange: #FB5012;
-    /* Dark Shades - Text and Backgrounds */
-    --colour-dark-gunmetal: #022B3A;
+  /* Main Brand Colour */
+  --colour-blue: #22aaa1;
+  /* Light Shades - Background */
+  --colour-white: #e6e8e6;
+  /* Light Accent */
+  --colour-dark-purple: #2f2235;
+  /* Dark Accent */
+  --colour-orange: #fb5012;
+  /* Dark Shades - Text and Backgrounds */
+  --colour-dark-gunmetal: #022b3a;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 h1 {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 28px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 28px;
 }
 
 h2 {
-    font-family: 'Fira Sans Extra Condensed', sans-serif;
-    font-size: 24px;
+  font-family: "Fira Sans Extra Condensed", sans-serif;
+  font-size: 24px;
 }
 
 h3 {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 18px;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 18px;
 }
 
 p {
-    font-family: 'Prompt', sans-serif;
-    font-size: 16px;
+  font-family: "Prompt", sans-serif;
+  font-size: 16px;
 }
 
 body {
-    background-color: var(--colour-dark-gunmetal);
+  background-color: var(--colour-dark-gunmetal);
 }
 
 header,
 footer {
-    background-color: var(--colour-blue);
-    padding: 1rem 1.5rem;
+  background-color: var(--colour-blue);
+  padding: 1rem 1.5rem;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
 
 nav img {
-    width: 50%;
+  width: 50%;
 }
 
 .hamburger-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .hamburger-menu span {
-    display: inline-block;
-    background-color: black;
-    width: 20px;
-    height: 7.5px;
+  display: inline-block;
+  background-color: black;
+  width: 20px;
+  height: 7.5px;
+}
+
+.search-box {
+  width: 100%;
+  color: var(--colour-white);
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.search-box button,
+.search-box input {
+  min-height: 28px;
+  height: 30px;
+  border: 1px solid var(--colour-orange);
+  outline: none;
+}
+
+.search-box input {
+  width: 80%;
+  border-radius: 50px 0 0 50px;
+  padding: 5px;
+}
+
+.search-box button {
+  background-color: var(--colour-orange);
+  width: 25px;
+  color: var(--colour-white);
 }
