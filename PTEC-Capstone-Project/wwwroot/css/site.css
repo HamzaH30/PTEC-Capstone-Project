@@ -140,6 +140,17 @@ header img {
   transform: rotate(-45deg) translate(0, 0);
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.177);
+  transition: background-color 0.5s ease-in-out;
+}
+
 .search-box {
   width: 100%;
   color: var(--colour-white);
