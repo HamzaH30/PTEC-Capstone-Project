@@ -19,10 +19,12 @@
   box-sizing: border-box;
 }
 
+/* Mobile default styles */
 h1 {
   font-family: "Roboto Condensed", sans-serif;
   font-size: 28px;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 h2 {
@@ -51,6 +53,8 @@ footer {
   padding: 1rem 1.5rem;
 }
 
+/* End of mobile default styles */
+/* Mobile nav bar */
 header {
   display: flex;
   justify-content: space-between;
@@ -151,6 +155,8 @@ header img {
   transition: background-color 0.5s ease-in-out;
 }
 
+/* End of mobile nav bar */
+/* Search bar on posts page styles */
 .search-box {
   width: 100%;
   color: var(--colour-white);
@@ -177,4 +183,54 @@ header img {
   background-color: var(--colour-orange);
   width: 25px;
   color: var(--colour-white);
+}
+/* End of search button posts styles */
+
+.posts-container {
+  margin-top: 2rem;
+}
+
+.post {
+  background-color: var(--colour-white);
+  color: black;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  padding-bottom: 0.5rem;
+  border-radius: 2rem;
+}
+
+.post > *,
+.request-btn {
+  padding: 0 1rem;
+}
+
+.post-heading {
+  display: flex;
+  background-color: var(--colour-blue);
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-radius: 2rem 2rem 0 0;
+}
+
+.post-info {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.request-join-team-btn-container {
+  display: flex;
+  justify-content: end;
+}
+
+.request-btn {
+  background-color: var(--colour-orange);
+  color: var(--colour-white);
+  font-weight: bold;
+  border: none;
+  border-radius: 5rem;
 }
