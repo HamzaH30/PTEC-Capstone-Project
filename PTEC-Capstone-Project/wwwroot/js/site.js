@@ -3,11 +3,13 @@
 
 // Write your JavaScript code.
 function menuClick() {
-  menuBtn.classList.add("opened-menu");
-  mobileMenu.classList.add("show-menu");
+  menuBtn.classList.toggle("opened-menu");
+  mobileMenu.classList.toggle("show-menu");
+  overlay.classList.toggle("overlay");
 }
 
 var menuBtn = document.getElementById("menu-btn");
 var mobileMenu = document.getElementById("mobile-menu");
+var overlay = document.getElementById("overlay");
 
 menuBtn.addEventListener("click", menuClick);
