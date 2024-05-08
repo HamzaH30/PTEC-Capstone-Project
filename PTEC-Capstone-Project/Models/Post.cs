@@ -13,7 +13,7 @@ namespace PTEC_Capstone_Project.Models
 
 
         // Foreign Key Properties
-        [ForeignKey("User")] public int UserID { get; set; }
+        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
         [ForeignKey("PostStatus")] public int StatusID { get; set; }
         [ForeignKey("Group")] public int GroupID { get; set; }
         [ForeignKey("Game")] public int GameID { get; set; }

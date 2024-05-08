@@ -13,7 +13,7 @@ namespace PTEC_Capstone_Project.Models
 
 
         // Foreign Key Properties
-        [ForeignKey("User")] public int RecieverID { get; set; }
+        [ForeignKey("ApplicationUser")] public int RecieverID { get; set; }
         [ForeignKey("Post")] public int PostID { get; set; }
         [ForeignKey("NotificationType")] public int TypeID { get; set; }
 
