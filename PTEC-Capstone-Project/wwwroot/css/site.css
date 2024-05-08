@@ -190,6 +190,12 @@ header img {
   margin-top: 2rem;
 }
 
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .post {
   background-color: var(--colour-white);
   color: black;
