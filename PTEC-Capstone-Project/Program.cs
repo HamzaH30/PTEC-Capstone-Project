@@ -22,6 +22,16 @@ namespace PTEC_Capstone_Project
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                context.Database.Migrate();
+
+                string? seedUserPassword = builder.Configuration["SeedUserPW"];
+                SeedData.Initialize(services, seedUserPassword).Wait();
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
