@@ -8,6 +8,7 @@ namespace PTEC_Capstone_Project.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
     }
 }
