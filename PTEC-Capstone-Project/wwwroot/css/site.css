@@ -112,6 +112,34 @@ header img {
   transform: translateX(0); /* Make it come into view */
 }
 
+.opened-menu {
+  z-index: 5;
+}
+
+.mobile-menu,
+.opened-menu .top,
+.opened-menu .bottom {
+  transition: transform 0.5s ease-in-out;
+}
+
+.opened-menu .middle {
+  display: none;
+}
+
+.opened-menu .top,
+.opened-menu .bottom {
+  background-color: var(--colour-blue);
+  height: 5px;
+}
+
+.opened-menu .top {
+  transform: rotate(45deg) translate(6px, 5px);
+}
+
+.opened-menu .bottom {
+  transform: rotate(-45deg) translate(0, 0);
+}
+
 .search-box {
   width: 100%;
   color: var(--colour-white);
