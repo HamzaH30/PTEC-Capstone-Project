@@ -46,13 +46,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                 type: "nvarchar(max)",
                 nullable: true);
 
-            migrationBuilder.AddColumn<string>(
-                name: "UserName",
-                table: "AspNetUsers",
-                type: "nvarchar(256)",
-                maxLength: 256,
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Games",
                 columns: table => new

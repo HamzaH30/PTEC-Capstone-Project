@@ -259,7 +259,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.GameTournament", b =>
@@ -278,7 +278,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameTournaments");
+                    b.ToTable("GameTournaments", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Group", b =>
@@ -314,7 +314,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.GroupStatus", b =>
@@ -331,7 +331,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GroupStatuses");
+                    b.ToTable("GroupStatuses", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.GroupUser", b =>
@@ -352,7 +352,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("GroupID");
 
-                    b.ToTable("GroupUsers");
+                    b.ToTable("GroupUsers", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Notification", b =>
@@ -380,7 +380,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.NotificationType", b =>
@@ -397,7 +397,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NotificationTypes");
+                    b.ToTable("NotificationTypes", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Post", b =>
@@ -429,7 +429,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.PostStatus", b =>
@@ -446,7 +446,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostStatuses");
+                    b.ToTable("PostStatuses", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Request", b =>
@@ -471,7 +471,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.RequestStatus", b =>
@@ -488,7 +488,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestStatuses");
+                    b.ToTable("RequestStatuses", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Tournament", b =>
@@ -513,7 +513,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("GameID");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("Tournaments", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.TournamentTeam", b =>
@@ -534,7 +534,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("TournamentID");
 
-                    b.ToTable("TournamentTeams");
+                    b.ToTable("TournamentTeams", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserGame", b =>
@@ -558,7 +558,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserGames");
+                    b.ToTable("UserGames", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserLinkedAccount", b =>
@@ -584,7 +584,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserLinkedAccounts");
+                    b.ToTable("UserLinkedAccounts", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserNotification", b =>
@@ -608,7 +608,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserNotifications");
+                    b.ToTable("UserNotifications", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserPost", b =>
@@ -632,7 +632,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserPosts");
+                    b.ToTable("UserPosts", (string)null);
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.ApplicationUser", b =>
