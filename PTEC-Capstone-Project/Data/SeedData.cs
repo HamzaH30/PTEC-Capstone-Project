@@ -13,12 +13,12 @@ namespace PTEC_Capstone_Project.Data
                 throw new Exception("No seed password!");
             }
 
-            string adminId = await SeedUser(serviceProvider, "seedUser@superAdmin.com", seedUserPw);
+            int adminId = await SeedUser(serviceProvider, "seedUser@superAdmin.com", seedUserPw);
 
             await SeedRole(serviceProvider, adminId, Constants.SuperAdminRole);
         }
 
-        public static async Task<string> SeedUser(IServiceProvider serviceProvider, string userName, string password)
+        public static async Task<int> SeedUser(IServiceProvider serviceProvider, string userName, string password)
         {
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>()!;
 
@@ -42,7 +42,7 @@ namespace PTEC_Capstone_Project.Data
             return user.Id;
         }
 
-        public static async Task<IdentityResult> SeedRole(IServiceProvider serviceProvider, string userId, string role)
+        public static async Task<IdentityResult> SeedRole(IServiceProvider serviceProvider, int userId, string role)
         {
             var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>()!;
 
@@ -53,7 +53,7 @@ namespace PTEC_Capstone_Project.Data
 
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>()!;
 
-            var user = await userManager.FindByIdAsync(userId) ?? throw new Exception("Seed user not found");
+            var user = await userManager.FindByIdAsync(userId.ToString()) ?? throw new Exception("Seed user not found");
 
             IdentityResult result = await userManager.AddToRoleAsync(user, role);
 
