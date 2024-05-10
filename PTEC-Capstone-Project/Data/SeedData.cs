@@ -13,12 +13,12 @@ namespace PTEC_Capstone_Project.Data
                 throw new Exception("No seed password!");
             }
 
-            int adminId = await SeedUser(serviceProvider, "seedUser@superAdmin.com", seedUserPw);
+            string adminId = await SeedUser(serviceProvider, "seedUser@superAdmin.com", seedUserPw);
 
-            await SeedRole(serviceProvider, adminId, Constants.SuperAdminRole);
+            //await SeedRole(serviceProvider, adminId, Constants.SuperAdminRole);
         }
 
-        public static async Task<int> SeedUser(IServiceProvider serviceProvider, string userName, string password)
+        public static async Task<string> SeedUser(IServiceProvider serviceProvider, string userName, string password)
         {
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>()!;
 
@@ -28,9 +28,8 @@ namespace PTEC_Capstone_Project.Data
             {
                 user = new ApplicationUser()
                 {
-                    Username = userName,
+                    UserName = userName,
                     Email = "seedUser@superadmin.com",
-                    Bio = "Bio Here"
                 };
                 var result = await userManager.CreateAsync(user, password);
 
