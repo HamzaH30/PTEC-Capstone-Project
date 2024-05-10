@@ -24,7 +24,7 @@ namespace PTEC_Capstone_Project.Data
         /// <returns></returns>
         public static async Task SeedSuperAdminUser(IServiceProvider serviceProvider, string? seedUserPw)
         {
-            string superAdminUserName = "Super Admin";
+            string superAdminUserName = "SuperAdmin";
             string adminId = await SeedUser(serviceProvider, superAdminUserName, seedUserPw);
 
             await SeedUserRole(serviceProvider, adminId, Constants.SuperAdminRole);
