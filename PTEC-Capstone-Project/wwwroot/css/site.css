@@ -334,10 +334,10 @@ header img {
   }
 
   .create-post-form div {
-    margin: 0, 1.5rem;
+    margin: 1.5rem, 0;
   }
 
   .games {
-    margin: 0, 1.5rem;
+    margin: 1.5rem, 0;
   }
 }
