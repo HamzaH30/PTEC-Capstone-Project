@@ -14,9 +14,9 @@ namespace PTEC_Capstone_Project.Models
          public int TournamentID { get; set; }
 
         // Navigation Properties
-        [ForeignKey("Game")]
+        [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
-        [ForeignKey("Tournament")]
+        [ForeignKey("TournamentID")]
         public virtual Tournament Tournament { get; set; }
     }
 }

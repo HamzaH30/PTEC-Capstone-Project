@@ -10,10 +10,13 @@ namespace PTEC_Capstone_Project.Models
         public int Id { get; set; }
 
         // Foreign Key Properties
-        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
-        [ForeignKey("Group")] public int GroupID { get; set; }
+        public string UserID { get; set; }
+        public int GroupID { get; set; }
 
         // Naviation Properties
+        [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("GroupID")]
+        public virtual Group Group { get; set; }
     }
 }

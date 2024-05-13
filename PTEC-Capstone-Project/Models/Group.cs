@@ -15,17 +15,17 @@ namespace PTEC_Capstone_Project.Models
 
 
         // Foreign Key Properties
-        public int CreatorID { get; set; }
+        public string CreatorID { get; set; }
         public int GameID { get; set; }
         public int StatusID { get; set; }
 
         // Navigation Properties 
         public virtual ICollection<GroupUser> GroupUsers { get; set; }
-        [ForeignKey("ApplicationUser")]
+        [ForeignKey("CreatorID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
-        [ForeignKey("Game")]
+        [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
-        [ForeignKey("GroupStatus")]
+        [ForeignKey("StatusID")]
         public virtual GroupStatus GroupStatus { get; set; }
     }
 }

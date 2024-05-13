@@ -13,7 +13,7 @@ namespace PTEC_Capstone_Project.Models
         public string Description { get; set; }
 
         // Foreign Key Properties
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int StatusID { get; set; }
         public int GroupID { get; set; }
         public int GameID { get; set; }
