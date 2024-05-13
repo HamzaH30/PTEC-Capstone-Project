@@ -5,7 +5,7 @@
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ModelChanges : Migration
+    public partial class ModelUpdateFK : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

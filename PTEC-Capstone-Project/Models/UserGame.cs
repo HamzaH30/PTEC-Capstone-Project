@@ -6,12 +6,17 @@ namespace PTEC_Capstone_Project.Models
     public class UserGame
     {
         // Self Properties
-        [Key] public int Id { get; set; }
-
-
+        [Key] 
+        public int Id { get; set; }
 
         // Foreign Key Properties
-        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
-        [ForeignKey("Game")] public int GameID { get; set; }
+        public int UserID { get; set; }
+        public int GameID { get; set; }
+
+        // Navigation properties
+        [ForeignKey("UserID")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("GameID")]
+        public virtual Game Game { get; set; }
     }
 }

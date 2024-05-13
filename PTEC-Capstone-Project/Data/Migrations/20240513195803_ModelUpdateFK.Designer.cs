@@ -12,8 +12,8 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240513162008_ModelChanges")]
-    partial class ModelChanges
+    [Migration("20240513195803_ModelUpdateFK")]
+    partial class ModelUpdateFK
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

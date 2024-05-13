@@ -6,12 +6,17 @@ namespace PTEC_Capstone_Project.Models
     public class UserNotification
     {
         // Self Properties
-        [Key] public int Id { get; set; }
-
-
+        [Key] 
+        public int Id { get; set; }
 
         // Foreign Key Properties 
-        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
-        [ForeignKey("Notification")] public int NotificationID { get; set; }
+        public int UserID { get; set; }
+        public int NotificationID { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("UserID")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("NotificationID")]
+        public virtual Notification Notification { get; set; }
     }
 }

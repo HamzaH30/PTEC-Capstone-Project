@@ -10,16 +10,17 @@ namespace PTEC_Capstone_Project.Models
         public bool IsRead { get; set; }
         public DateTime Timestamp { get; set; }
 
-
-
         // Foreign Key Properties
-        [ForeignKey("ApplicationUser")] public int RecieverID { get; set; }
-        [ForeignKey("Post")] public int PostID { get; set; }
-        [ForeignKey("NotificationType")] public int TypeID { get; set; }
-
-
+        public int RecieverID { get; set; }
+        public int PostID { get; set; }
+        public int TypeID { get; set; }
 
         // Navigation Properties
-
+        [ForeignKey("RecieverID")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("PostID")]
+        public virtual Post Post { get; set; }
+        [ForeignKey("TypeID")]
+        public virtual NotificationType NotificationType { get; set; }
     }
 }
