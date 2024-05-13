@@ -332,4 +332,8 @@ header img {
   h3 {
     font-size: 20px;
   }
+
+  .create-post-form div {
+    margin: 1rem;
+  }
 }
