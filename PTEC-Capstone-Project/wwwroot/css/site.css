@@ -48,6 +48,14 @@ textarea {
 body {
   background-color: var(--colour-dark-gunmetal);
   color: white;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 5rem;
+}
+
+body.light-mode {
+    background-color: whitesmoke;
+    color: var(--colour-dark-gunmetal);
 }
 
 header,
@@ -214,6 +222,10 @@ header img {
   border-radius: 2rem;
 }
 
+.light-mode .post {
+    background-color: #d9dcd9;
+}
+
 .post > *,
 .request-btn {
   padding: 0 1rem;
@@ -272,6 +284,21 @@ header img {
   background-color: #fb5012;
 }
 
+.light-mode .create-post-form input,
+.light-mode .create-post-form textarea,
+.light-mode .create-post-form select {
+    border: none;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    color: whitesmoke;
+    background-color: var(--colour-dark-gunmetal)
+}
+
+.create-post-form .submit {
+    background-color: var(--colour-orange);
+    color: var(--colour-white);
+}
+
 /* End of Create Posts page styling */
 
 /* Favourite Games page styling */
@@ -297,6 +324,10 @@ header img {
   border-radius: 3rem;
 }
 
+.light-mode .game {
+    background-color: #d9dcd9;
+}
+
 .game p {
   margin: 0;
 }
@@ -306,6 +337,12 @@ header img {
 }
 
 /* Footer */
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
 
 /* Tablet */
 
