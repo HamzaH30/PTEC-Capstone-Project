@@ -12,8 +12,8 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240508160139_CreateTables")]
-    partial class CreateTables
+    [Migration("20240514141641_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -281,6 +281,10 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("TournamentID");
+
                     b.ToTable("GameTournaments");
                 });
 
@@ -298,8 +302,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -316,6 +321,12 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("StatusID");
 
                     b.ToTable("Groups");
                 });
@@ -348,12 +359,15 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<int>("GroupID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GroupID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("GroupUsers");
                 });
@@ -372,8 +386,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
-                    b.Property<int>("RecieverID")
-                        .HasColumnType("int");
+                    b.Property<string>("RecieverID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
@@ -382,6 +397,12 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostID");
+
+                    b.HasIndex("RecieverID");
+
+                    b.HasIndex("TypeID");
 
                     b.ToTable("Notifications");
                 });
@@ -427,10 +448,19 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("GroupID");
+
+                    b.HasIndex("StatusID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Posts");
                 });
@@ -463,8 +493,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<int>("GroupID")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderID")
-                        .HasColumnType("int");
+                    b.Property<string>("SenderID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("StatusID")
                         .HasColumnType("int");
@@ -473,6 +504,12 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupID");
+
+                    b.HasIndex("SenderID");
+
+                    b.HasIndex("StatusID");
 
                     b.ToTable("Requests");
                 });
@@ -535,6 +572,8 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupID");
+
                     b.HasIndex("TournamentID");
 
                     b.ToTable("TournamentTeams");
@@ -548,18 +587,18 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("GameID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("UserGames");
                 });
@@ -598,18 +637,18 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("NotificationID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("NotificationID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("UserNotifications");
                 });
@@ -622,18 +661,18 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("PostID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("UserPosts");
                 });
@@ -641,18 +680,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
             modelBuilder.Entity("PTEC_Capstone_Project.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -708,38 +735,207 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PTEC_Capstone_Project.Models.GroupUser", b =>
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.GameTournament", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.Group", null)
-                        .WithMany("GroupUsers")
-                        .HasForeignKey("GroupID")
+                    b.HasOne("PTEC_Capstone_Project.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.Tournament", "Tournament")
+                        .WithMany()
+                        .HasForeignKey("TournamentID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.Group", b =>
+                {
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.GroupStatus", "GroupStatus")
+                        .WithMany()
+                        .HasForeignKey("StatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Game");
+
+                    b.Navigation("GroupStatus");
+                });
+
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.GroupUser", b =>
+                {
+                    b.HasOne("PTEC_Capstone_Project.Models.Group", "Group")
+                        .WithMany("GroupUsers")
+                        .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.Notification", b =>
+                {
+                    b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("RecieverID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("TypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("NotificationType");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.Post", b =>
+                {
+                    b.HasOne("PTEC_Capstone_Project.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.PostStatus", "PostStatus")
+                        .WithMany()
+                        .HasForeignKey("StatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("PostStatus");
+                });
+
+            modelBuilder.Entity("PTEC_Capstone_Project.Models.Request", b =>
+                {
+                    b.HasOne("PTEC_Capstone_Project.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("SenderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.RequestStatus", "RequestStatus")
+                        .WithMany()
+                        .HasForeignKey("StatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("RequestStatus");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Tournament", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.Game", null)
+                    b.HasOne("PTEC_Capstone_Project.Models.Game", "Game")
                         .WithMany("Tournaments")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.TournamentTeam", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.Tournament", null)
-                        .WithMany("Teams")
-                        .HasForeignKey("TournamentID")
+                    b.HasOne("PTEC_Capstone_Project.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.Tournament", "Tournament")
+                        .WithMany("Teams")
+                        .HasForeignKey("TournamentID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Tournament");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserGame", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", null)
+                    b.HasOne("PTEC_Capstone_Project.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("FavouritedGames")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserLinkedAccount", b =>
@@ -751,16 +947,40 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserNotification", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", null)
+                    b.HasOne("PTEC_Capstone_Project.Models.Notification", "Notification")
+                        .WithMany()
+                        .HasForeignKey("NotificationID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Notifications")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Notification");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserPost", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", null)
+                    b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Posts")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Game", b =>
