@@ -15,20 +15,12 @@ namespace PTEC_Capstone_Project.Models
         public bool IsArchived { get; set; } = false;
 
         // Foreign Key Properties
-        public string UserID { get; set; }
         public int StatusID { get; set; }
-        public int GroupID { get; set; }
         public int GameID { get; set; }
 
         // Navigation Properties
-        [ForeignKey("UserID")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
-
-        [ForeignKey("GroupID")]
-        [DeleteBehavior(DeleteBehavior.NoAction)]
-        public virtual Group Group { get; set; }
-
         [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
+        public virtual ICollection<UserPost> UserPosts { get; set; }
     }
 }

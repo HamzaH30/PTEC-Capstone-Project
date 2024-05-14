@@ -9,6 +9,7 @@ namespace PTEC_Capstone_Project.Models
         // Self Properties
         [Key] 
         public int Id { get; set; }
+        public bool IsCreator { get; set; } = false;
 
         // Foreign Key Properties 
         public string UserID { get; set; }

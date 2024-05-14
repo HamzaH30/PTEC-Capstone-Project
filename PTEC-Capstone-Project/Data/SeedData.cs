@@ -35,6 +35,76 @@ namespace PTEC_Capstone_Project.Data
             await dbContext.SaveChangesAsync();
         }
 
+        public static async Task SeedPosts(IServiceProvider serviceProvider)
+        {
+            ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
+
+            if (!dbContext.Posts.Any() && dbContext.Groups.Any() && dbContext.Games.Any())
+            {
+                List<Post> posts = new List<Post>();
+                List<string> Descriptions = new List<string>()
+                {
+                    "Looking for a competitive group to play rank.\nWanting to level up to 2 new levels. Playing for maybe around 2 hours.",
+                    "Casual gaming. We've been playing for a couple of years. We can help you level up.",
+                    "Wanting to practice before Nationals.",
+                    "Seeking expert players for late-night raids. Must have mic and good teamwork skills.",
+                    "Weekend warriors needed for laid-back PvP sessions. Beginners welcome!",
+                    "Join our questing group! Looking for two more players to complete our team. We play evenings EST.",
+                    "Daily morning gamer seeking same for quick matches before work.",
+                    "Need a fourth for our squad in shooter games. We focus on strategy and communication.",
+                    "Looking for someone to coach me in FPS games. Willing to trade coaching in RTS games.",
+                    "Weekday late afternoon group looking for one more player for a co-op campaign.",
+                    "Seeking a partner for duo ranking. Must be serious about climbing the ladder and available evenings.",
+                    "Hardcore gaming this Saturday. Starting a marathon session and need more players!",
+                    "LF2M (Looking for 2 more) for a competitive team. Tryouts tonight at 7 PM.",
+                    "Need a substitute player for our tournament next week. High skill required.",
+                    "Exploring the world of newly released MMO. Join us for a fresh start and epic adventures.",
+                    "Casual, friendly group looking to expand our horizons with new members. All games, all fun!",
+                    "Strategy aficionados unite! Looking for group members interested in deep tactical gameplay.",
+                    "Setting up a learning group for beginners. We focus on fun and steady improvement.",
+                    "Creating a lore-focused group for deep dives into game stories and character arcs. Join us for discussions and gameplay.",
+                    "Speedrunner looking for partners to practice and exchange tips with. Let’s break some records together!",
+                    "Parents who play! Looking for other gaming parents for relaxed late evening sessions."
+                };
+
+
+                for (int i = 0; i < NumPosts; i++)
+                {
+                    Random rnd = new Random();
+
+                    // Retrieve random game
+                    int rndGameId = rnd.Next(0, dbContext.Games.Count());
+                    Game randomGame = dbContext.Games.FirstOrDefault(g => g.Id == rndGameId);
+
+
+                    Post post = new Post()
+                    {
+                        Timestamp = DateTime.Now,
+                        Description = Descriptions[rnd.Next(0, Descriptions.Count)],
+                        Game = randomGame,
+                    };
+                }
+            }
+        }
+
+        public static async Task SeedUserPosts(IServiceProvider serviceProvider)
+        {
+            ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
+
+            if (!dbContext.UserPosts.Any() && dbContext.Users.Any() && dbContext.Posts.Any())
+            {
+                List<UserPost> userPosts = new List<UserPost>();
+
+                foreach (Post post in dbContext.Posts)
+                {
+
+                }
+            }
+        }
+
+        /*
+         * Based on previous discussion, the whole "Group" is redundant within the context of the MVP.
+         * May 14, 2024
         public static async Task SeedGroups(IServiceProvider serviceProvider)
         {
             ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
@@ -62,6 +132,7 @@ namespace PTEC_Capstone_Project.Data
                 await dbContext.Groups.AddRangeAsync(groups);
             }
         }
+        */
 
 
         public static async Task SeedUsers(IServiceProvider serviceProvider, string? seedUserPw)

@@ -7,7 +7,7 @@ namespace PTEC_Capstone_Project.Models
     {
         // Navigation Properties
         public virtual ICollection<UserNotification>? Notifications { get; set; }
-        public virtual ICollection<UserPost>? Posts { get; set; }
+        public virtual ICollection<UserPost>? UserPosts { get; set; }
         public virtual ICollection<UserGame>? FavouritedGames { get; set; }
         public virtual ICollection<UserLinkedAccount>? LinkedAccounts { get; set; }
     }

@@ -13,7 +13,6 @@ namespace PTEC_Capstone_Project.Data
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<NotificationType> NotificationTypes  { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<PostStatus> PostStatuses { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
         public virtual DbSet<Tournament> Tournaments { get; set; }
