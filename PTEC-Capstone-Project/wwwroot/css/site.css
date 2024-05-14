@@ -48,6 +48,9 @@ textarea {
 body {
   background-color: var(--colour-dark-gunmetal);
   color: white;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 5rem;
 }
 
 body.light-mode {
@@ -334,6 +337,12 @@ header img {
 }
 
 /* Footer */
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
 
 /* Tablet */
 
