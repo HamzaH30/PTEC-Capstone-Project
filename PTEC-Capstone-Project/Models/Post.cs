@@ -12,6 +12,7 @@ namespace PTEC_Capstone_Project.Models
         public int Id { get; set; }
         public DateTime Timestamp { get; set; }
         public string Description { get; set; }
+        public bool IsArchived { get; set; } = false;
 
         // Foreign Key Properties
         public string UserID { get; set; }
@@ -22,9 +23,6 @@ namespace PTEC_Capstone_Project.Models
         // Navigation Properties
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
-
-        [ForeignKey("StatusID")]
-        public virtual PostStatus PostStatus { get; set; }
 
         [ForeignKey("GroupID")]
         [DeleteBehavior(DeleteBehavior.NoAction)]
