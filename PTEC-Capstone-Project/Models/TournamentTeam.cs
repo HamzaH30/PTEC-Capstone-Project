@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -15,6 +16,7 @@ namespace PTEC_Capstone_Project.Models
 
         // Navigation properties
         [ForeignKey("TournamentID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Tournament Tournament { get; set; }
         [ForeignKey("GroupID")]
         public virtual Group Group { get; set; }

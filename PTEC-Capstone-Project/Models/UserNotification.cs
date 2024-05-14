@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -10,13 +11,14 @@ namespace PTEC_Capstone_Project.Models
         public int Id { get; set; }
 
         // Foreign Key Properties 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int NotificationID { get; set; }
 
         // Navigation Properties
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("NotificationID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Notification Notification { get; set; }
     }
 }

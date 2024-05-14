@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -17,6 +18,7 @@ namespace PTEC_Capstone_Project.Models
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("GroupID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Group Group { get; set; }
     }
 }

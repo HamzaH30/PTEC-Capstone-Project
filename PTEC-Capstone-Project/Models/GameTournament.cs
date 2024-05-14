@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -17,6 +18,7 @@ namespace PTEC_Capstone_Project.Models
         [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
         [ForeignKey("TournamentID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Tournament Tournament { get; set; }
     }
 }

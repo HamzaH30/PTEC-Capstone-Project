@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,6 +27,7 @@ namespace PTEC_Capstone_Project.Models
         public virtual PostStatus PostStatus { get; set; }
 
         [ForeignKey("GroupID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Group Group { get; set; }
 
         [ForeignKey("GameID")]
