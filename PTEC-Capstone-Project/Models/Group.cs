@@ -8,11 +8,10 @@ namespace PTEC_Capstone_Project.Models
         // Self Properties
         [Key]
         public int Id { get; set; }
-        public string GroupName { get; set; }
+        public string? GroupName { get; set; }
         public int Capacity { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public DateTime CreationDate { get; set; }
-
 
         // Foreign Key Properties
         public string CreatorID { get; set; }

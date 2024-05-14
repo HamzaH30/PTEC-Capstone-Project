@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PTEC_Capstone_Project.Data;
 
@@ -11,9 +12,11 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240514152243_DbContextGenericChange")]
+    partial class DbContextGenericChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,7 +250,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games", (string)null);
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.GameTournament", b =>
@@ -270,7 +273,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("TournamentID");
 
-                    b.ToTable("GameTournaments", (string)null);
+                    b.ToTable("GameTournaments");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Group", b =>
@@ -306,7 +309,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("GameID");
 
-                    b.ToTable("Groups", (string)null);
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.GroupUser", b =>
@@ -330,7 +333,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("GroupUsers", (string)null);
+                    b.ToTable("GroupUsers");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Notification", b =>
@@ -365,7 +368,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("TypeID");
 
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.NotificationType", b =>
@@ -382,7 +385,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NotificationTypes", (string)null);
+                    b.ToTable("NotificationTypes");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Post", b =>
@@ -423,7 +426,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.PostStatus", b =>
@@ -440,7 +443,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostStatuses", (string)null);
+                    b.ToTable("PostStatuses");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Request", b =>
@@ -472,7 +475,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("StatusID");
 
-                    b.ToTable("Requests", (string)null);
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.RequestStatus", b =>
@@ -489,7 +492,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestStatuses", (string)null);
+                    b.ToTable("RequestStatuses");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Tournament", b =>
@@ -514,7 +517,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("GameID");
 
-                    b.ToTable("Tournaments", (string)null);
+                    b.ToTable("Tournaments");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.TournamentTeam", b =>
@@ -537,7 +540,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("TournamentID");
 
-                    b.ToTable("TournamentTeams", (string)null);
+                    b.ToTable("TournamentTeams");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserGame", b =>
@@ -561,7 +564,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserGames", (string)null);
+                    b.ToTable("UserGames");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserLinkedAccount", b =>
@@ -587,7 +590,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserLinkedAccounts", (string)null);
+                    b.ToTable("UserLinkedAccounts");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserNotification", b =>
@@ -611,7 +614,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserNotifications", (string)null);
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserPost", b =>
@@ -635,7 +638,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserPosts", (string)null);
+                    b.ToTable("UserPosts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
