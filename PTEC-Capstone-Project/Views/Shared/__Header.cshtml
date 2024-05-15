@@ -13,7 +13,7 @@
     <a href="#">View Posts</a>
     <a href="#">Create Post</a>
     <a href="#">Profile</a>
-    <a href="#">Logout</a>
+    <partial name="_LoginPartial" />
   </nav>
 </header>
 <section class="mobile-menu" id="mobile-menu">
@@ -21,7 +21,6 @@
   <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
   <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
   <a href="#">Profile</a>
-  <a href="#">Register</a>
-  <a href="#">Logout</a>
+  <partial name="_LoginPartial" />
 </section>
 <div id="overlay"></div>
