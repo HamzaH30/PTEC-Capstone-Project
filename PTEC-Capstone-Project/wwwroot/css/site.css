@@ -344,6 +344,17 @@ footer {
     bottom: 0;
 }
 
+
+/* Login Page */
+.login-container {
+    margin: 2rem auto;
+}
+
+.login-container h2 {
+    text-align: center;
+}
+
+
 /* Tablet */
 
 @media screen and (min-width: 800px) {
