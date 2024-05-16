@@ -348,12 +348,17 @@ footer {
 /* Login Page */
 .login-container {
     margin: 2rem auto;
+    width: 70%;
 }
 
 .login-container h2 {
     text-align: center;
 }
 
+.login-end-links {
+    margin-top: 1rem;
+    text-align: center;
+}
 
 /* Tablet */
 
@@ -387,5 +392,11 @@ footer {
 
   .games {
     margin: 1.5rem, 0;
+  }
+
+  .login-end-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
   }
 }
