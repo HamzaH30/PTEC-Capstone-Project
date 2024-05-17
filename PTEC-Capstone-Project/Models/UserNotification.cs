@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -6,12 +7,18 @@ namespace PTEC_Capstone_Project.Models
     public class UserNotification
     {
         // Self Properties
-        [Key] public int Id { get; set; }
-
-
+        [Key] 
+        public int Id { get; set; }
 
         // Foreign Key Properties 
-        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
-        [ForeignKey("Notification")] public int NotificationID { get; set; }
+        public string UserID { get; set; }
+        public int NotificationID { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("UserID")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("NotificationID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
+        public virtual Notification Notification { get; set; }
     }
 }

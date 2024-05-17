@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -6,16 +8,18 @@ namespace PTEC_Capstone_Project.Models
     public class Post
     {
         // Self Properties
-        [Key] public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public DateTime Timestamp { get; set; }
         public string Description { get; set; }
-
-
+        public bool IsArchived { get; set; } = false;
 
         // Foreign Key Properties
-        [ForeignKey("ApplicationUser")] public int UserID { get; set; }
-        [ForeignKey("PostStatus")] public int StatusID { get; set; }
-        [ForeignKey("Group")] public int GroupID { get; set; }
-        [ForeignKey("Game")] public int GameID { get; set; }
+        public int GameID { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("GameID")]
+        public virtual Game Game { get; set; }
+        public virtual ICollection<UserPost> UserPosts { get; set; }
     }
 }
