@@ -54,8 +54,8 @@ body {
 }
 
 body.light-mode {
-    background-color: whitesmoke;
-    color: var(--colour-dark-gunmetal);
+  background-color: whitesmoke;
+  color: var(--colour-dark-gunmetal);
 }
 
 header,
@@ -78,7 +78,11 @@ nav {
 }
 
 header img {
-  width: 50%;
+  width: 100%;
+}
+
+.team-up-logo {
+  height: 50px;
 }
 
 .hamburger-menu {
@@ -223,7 +227,7 @@ header img {
 }
 
 .light-mode .post {
-    background-color: #d9dcd9;
+  background-color: #d9dcd9;
 }
 
 .post > *,
@@ -287,16 +291,16 @@ header img {
 .light-mode .create-post-form input,
 .light-mode .create-post-form textarea,
 .light-mode .create-post-form select {
-    border: none;
-    border-radius: 3rem;
-    padding: 0.5rem 1rem;
-    color: whitesmoke;
-    background-color: var(--colour-dark-gunmetal)
+  border: none;
+  border-radius: 3rem;
+  padding: 0.5rem 1rem;
+  color: whitesmoke;
+  background-color: var(--colour-dark-gunmetal);
 }
 
 .create-post-form .submit {
-    background-color: var(--colour-orange);
-    color: var(--colour-white);
+  background-color: var(--colour-orange);
+  color: var(--colour-white);
 }
 
 /* End of Create Posts page styling */
@@ -325,7 +329,7 @@ header img {
 }
 
 .light-mode .game {
-    background-color: #d9dcd9;
+  background-color: #d9dcd9;
 }
 
 .game p {
@@ -336,9 +340,90 @@ header img {
   color: var(--colour-orange);
 }
 
-
 /* Laptop Styles */
 
+/* Register */
+
+#registerForm h2 {
+  text-align: center;
+}
+
+.registerContainer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.registerContainer h3 {
+  color: white;
+}
+
+.light-mode .registerContainer h3 {
+  color: var(--colour-dark-gunmetal);
+}
+
+/* Footer */
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+/* Login Page */
+.login-container {
+  margin: 2rem auto;
+  width: 70%;
+}
+
+.login-container h2 {
+  text-align: center;
+}
+
+.login-end-links {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Tablet */
+
+@media screen and (min-width: 800px) {
+  .posts {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .post {
+    max-width: 45%;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .create-post-form div {
+    margin: 1.5rem, 0;
+  }
+
+  .games {
+    margin: 1.5rem, 0;
+  }
+
+  .login-end-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+}
 @media screen and (min-width: 1000px) {
   h1 {
     font-size: 48px;
@@ -380,13 +465,6 @@ header img {
     text-decoration: none;
   }
 
-  header img {
-    width: 100%;
-  }
-
-  .team-up-logo {
-    height: 50px;
-  }
   /* Search bar on posts page styles */
 
   .search-box button,
@@ -429,6 +507,7 @@ header img {
 
     padding-bottom: 0.5rem;
     border-radius: 2rem;
+    max-width: 100%;
   }
 
   .post > *,
@@ -464,90 +543,5 @@ header img {
   }
   .svg-fill {
     font-size: 24px;
-  }
-}
-
-/* Register */
-
-#registerForm h2{
-    text-align: center;
-}
-
-.registerContainer {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: center;
-}
-
-.registerContainer h3 {
-    color: white;
-}
-
-.light-mode .registerContainer h3 {
-    color: var(--colour-dark-gunmetal);
-}
-
-/* Footer */
-
-footer {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-}
-
-
-/* Login Page */
-.login-container {
-    margin: 2rem auto;
-    width: 70%;
-}
-
-.login-container h2 {
-    text-align: center;
-}
-
-.login-end-links {
-    margin-top: 1rem;
-    text-align: center;
-}
-
-/* Tablet */
-
-@media screen and (min-width: 800px) {
-
-  .posts {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  .post {
-      max-width: 45%;
-  }
-
-  h1 {
-    font-size: 36px;
-  }
-
-  h2 {
-    font-size: 28px;
-  }
-
-  h3 {
-    font-size: 20px;
-  }
-
-  .create-post-form div {
-    margin: 1.5rem, 0;
-  }
-
-  .games {
-    margin: 1.5rem, 0;
-  }
-
-  .login-end-links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
   }
 }
