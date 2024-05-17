@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PTEC_Capstone_Project.Data;
 
@@ -11,9 +12,11 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240517140214_UpdateDBToMakeItMVP")]
+    partial class UpdateDBToMakeItMVP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,6 +322,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
+
+                    b.Property<int>("StatusID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
