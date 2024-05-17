@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 
-namespace PTEC_Capstone_Project
+namespace PTEC_Capstone_Project 
 {
     public class Program
     {
