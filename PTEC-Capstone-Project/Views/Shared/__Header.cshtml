@@ -14,8 +14,7 @@
       <a asp-controller="Home" asp-action="">View Posts</a>
       <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
       <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-      <a href="#">Profile</a>
-      <a href="#">Logout</a>
+      <partial name="_LoginPartial" />
       </section>
   </nav>
 </header>
@@ -23,8 +22,6 @@
   <a asp-controller="Home" asp-action="">View Posts</a>
   <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
   <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-  <a href="#">Profile</a>
-  <a href="#">Register</a>
-  <a href="#">Logout</a>
+    <partial name="_LoginPartial" />
 </section>
 <div id="overlay"></div>
