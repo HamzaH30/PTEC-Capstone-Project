@@ -336,6 +336,137 @@ header img {
   color: var(--colour-orange);
 }
 
+
+/* Laptop Styles */
+
+@media screen and (min-width: 1000px) {
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+  }
+  .nav-bar a {
+    color: #2f2235;
+    font-size: 22px;
+    text-decoration: none;
+  }
+
+  header img {
+    width: 100%;
+  }
+
+  .team-up-logo {
+    height: 50px;
+  }
+  /* Search bar on posts page styles */
+
+  .search-box button,
+  .search-box input {
+    min-height: 28px;
+    height: 30px;
+    border: 1px solid var(--colour-orange);
+    outline: none;
+  }
+
+  .search-box input {
+    width: 80%;
+    border-radius: 50px 0 0 50px;
+    padding: 15px;
+  }
+
+  .search-box button {
+    background-color: var(--colour-orange);
+    width: 30px;
+    height: 32px;
+    color: var(--colour-white);
+  }
+  /* End of search button posts styles */
+
+  /*Laptop posts*/
+  .posts {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2rem;
+    margin: 2rem;
+  }
+  .post {
+    background-color: var(--colour-white);
+    color: black;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding-bottom: 0.5rem;
+    border-radius: 2rem;
+  }
+
+  .post > *,
+  .request-btn {
+    padding: 0 1rem;
+  }
+
+  .post-heading {
+    display: flex;
+    background-color: var(--colour-blue);
+    justify-content: space-between;
+    gap: 1rem;
+
+    border-radius: 2rem 2rem 0 0;
+  }
+
+  .post-info {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .request-btn {
+    background-color: var(--colour-orange);
+    color: var(--colour-white);
+    font-weight: bold;
+    border: none;
+    border-radius: 5rem;
+    padding: 6px;
+    margin: 10px;
+  }
+  .post p {
+    font-size: 20px;
+  }
+  .svg-fill {
+    font-size: 24px;
+  }
+}
+
 /* Register */
 
 #registerForm h2{
