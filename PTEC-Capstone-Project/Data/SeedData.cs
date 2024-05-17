@@ -18,15 +18,17 @@ namespace PTEC_Capstone_Project.Data
 
             await SeedSuperAdminUser(serviceProvider, seedUserPw);
 
-            List<Task> seedDataTasks = new List<Task>();
-
-            // Seed data that is independant on any othr data
-            seedDataTasks.Add(SeedGames(serviceProvider));
-            seedDataTasks.Add(SeedUsers(serviceProvider, seedUserPw));
+            List<Task> seedDataTasks =
+            [
+                // Seed data that is independant of any other data
+                SeedGames(serviceProvider),
+                SeedUsers(serviceProvider, seedUserPw),
+            ];
 
             // Seed data that is dependant on the data above
             await Task.WhenAll(seedDataTasks);
-            seedDataTasks.Add(SeedGroups(serviceProvider));
+            seedDataTasks.Add(SeedPosts(serviceProvider));
+            seedDataTasks.Add(SeedUserPosts(serviceProvider));
 
 
             // Once all the data has been seeded, update the database
@@ -39,7 +41,7 @@ namespace PTEC_Capstone_Project.Data
         {
             ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
 
-            if (!dbContext.Posts.Any() && dbContext.Groups.Any() && dbContext.Games.Any())
+            if (!dbContext.Posts.Any() &&  dbContext.Games.Any())
             {
                 List<Post> posts = new List<Post>();
                 List<string> Descriptions = new List<string>()
@@ -67,7 +69,6 @@ namespace PTEC_Capstone_Project.Data
                     "Parents who play! Looking for other gaming parents for relaxed late evening sessions."
                 };
 
-
                 for (int i = 0; i < NumPosts; i++)
                 {
                     Random rnd = new Random();
@@ -76,14 +77,17 @@ namespace PTEC_Capstone_Project.Data
                     int rndGameId = rnd.Next(0, dbContext.Games.Count());
                     Game randomGame = dbContext.Games.FirstOrDefault(g => g.Id == rndGameId);
 
-
                     Post post = new Post()
                     {
                         Timestamp = DateTime.Now,
                         Description = Descriptions[rnd.Next(0, Descriptions.Count)],
-                        Game = randomGame,
+                        Game = randomGame
                     };
+                    
+                    posts.Add(post);
                 }
+
+                await dbContext.Posts.AddRangeAsync(posts);
             }
         }
 
@@ -94,46 +98,30 @@ namespace PTEC_Capstone_Project.Data
             if (!dbContext.UserPosts.Any() && dbContext.Users.Any() && dbContext.Posts.Any())
             {
                 List<UserPost> userPosts = new List<UserPost>();
-
-                foreach (Post post in dbContext.Posts)
-                {
-
-                }
-            }
-        }
-
-        /*
-         * Based on previous discussion, the whole "Group" is redundant within the context of the MVP.
-         * May 14, 2024
-        public static async Task SeedGroups(IServiceProvider serviceProvider)
-        {
-            ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
-
-            // Ensure you're only adding groups if there aren't any already and there are users to associate with.
-            if (!dbContext.Groups.Any() && dbContext.Users.Any())
-            {
                 Random rnd = new Random();
 
-                List<Group> groups = new List<Group>();
+                // Get a list of all users
+                List<ApplicationUser> allUsers = dbContext.Users.ToList();
+                List<Post> allPosts = dbContext.Posts.ToList();
 
-                for (int i = 0; i < NumPosts; i++)
+                foreach (Post post in allPosts)
                 {
-                    // Retrieve a random user to assign as the creator of the group
-                    ApplicationUser randomUser = dbContext.Users.OrderBy(u => Guid.NewGuid()).FirstOrDefault()!;
+                    // Select a random user from the list
+                    var randomUser = allUsers[rnd.Next(allUsers.Count)];
 
-                    // Retrieve a random game
-                    int numGames = dbContext.Games.Count();
-                    int rndGameId = rnd.Next(0, numGames);
-                    Game randomGame = dbContext.Games.FirstOrDefault(g => g.Id == rndGameId);
+                    UserPost userPost = new UserPost()
+                    {
+                        IsCreator = true,
+                        ApplicationUser = randomUser,
+                        Post = post
+                    };
 
-                    groups.Add(new Group() { Capacity = rnd.Next(1, 5), CreationDate = DateTime.Now, ApplicationUser = randomUser, Game = randomGame });
+                    userPosts.Add(userPost);
                 }
 
-                await dbContext.Groups.AddRangeAsync(groups);
+                await dbContext.UserPosts.AddRangeAsync(userPosts);
             }
         }
-        */
-
 
         public static async Task SeedUsers(IServiceProvider serviceProvider, string? seedUserPw)
         {

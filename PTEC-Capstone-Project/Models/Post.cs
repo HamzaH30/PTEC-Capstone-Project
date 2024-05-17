@@ -15,7 +15,6 @@ namespace PTEC_Capstone_Project.Models
         public bool IsArchived { get; set; } = false;
 
         // Foreign Key Properties
-        public int StatusID { get; set; }
         public int GameID { get; set; }
 
         // Navigation Properties
