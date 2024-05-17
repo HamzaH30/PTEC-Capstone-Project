@@ -1,6 +1,6 @@
 ﻿<header>
   <div>
-    <img src="/images/Logo_for_project-removebg-preview.svg" />
+    <img class="team-up-logo"   src="/images/Logo_for_project-removebg-preview.svg" />
   </div>
   <div class="hamburger-menu" id="menu-btn">
     <span class="top"></span>
@@ -10,15 +10,18 @@
 
   <!-- This is the nav bar displayed on tablets & desktop. -->
   <nav>
-    <a asp-controller="Home" asp-action="Index">View Posts</a>
-    <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
-    <partial name="_LoginPartial" />
+    <section class="nav-bar">
+      <a asp-controller="Home" asp-action="">View Posts</a>
+      <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
+      <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
+      <partial name="_LoginPartial" />
+      </section>
   </nav>
 </header>
 <section class="mobile-menu" id="mobile-menu">
-  <a asp-controller="Home" asp-action="Index">View Posts</a>
+  <a asp-controller="Home" asp-action="">View Posts</a>
   <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
   <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-  <partial name="_LoginPartial" />
+    <partial name="_LoginPartial" />
 </section>
 <div id="overlay"></div>

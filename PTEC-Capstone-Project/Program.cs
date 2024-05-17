@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
 
-namespace PTEC_Capstone_Project
+namespace PTEC_Capstone_Project 
 {
     public class Program
     {
