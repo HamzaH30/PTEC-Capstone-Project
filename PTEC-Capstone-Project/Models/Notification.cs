@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTEC_Capstone_Project.Models
@@ -10,16 +11,18 @@ namespace PTEC_Capstone_Project.Models
         public bool IsRead { get; set; }
         public DateTime Timestamp { get; set; }
 
-
-
         // Foreign Key Properties
-        [ForeignKey("ApplicationUser")] public int RecieverID { get; set; }
-        [ForeignKey("Post")] public int PostID { get; set; }
-        [ForeignKey("NotificationType")] public int TypeID { get; set; }
-
-
+        public string RecieverID { get; set; }
+        public int PostID { get; set; }
+        public int TypeID { get; set; }
 
         // Navigation Properties
-
+        [ForeignKey("RecieverID")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("PostID")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
+        public virtual Post Post { get; set; }
+        [ForeignKey("TypeID")]
+        public virtual NotificationType NotificationType { get; set; }
     }
 }
