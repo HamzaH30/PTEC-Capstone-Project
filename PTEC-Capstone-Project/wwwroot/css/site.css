@@ -336,6 +336,26 @@ header img {
   color: var(--colour-orange);
 }
 
+/* Register */
+
+#registerForm h2{
+    text-align: center;
+}
+
+.registerContainer {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+.registerContainer h3 {
+    color: white;
+}
+
+.light-mode .registerContainer h3 {
+    color: var(--colour-dark-gunmetal);
+}
+
 /* Footer */
 
 footer {
