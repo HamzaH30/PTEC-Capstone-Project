@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
+using PTEC_Capstone_Project.Models.ViewModels;
 using System.Diagnostics;
 
 namespace PTEC_Capstone_Project.Controllers
@@ -21,12 +23,27 @@ namespace PTEC_Capstone_Project.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var viewModel = await GetGamePostViewModelsAsync();
+            return View(viewModel);
         }
-        //game, user, time posted, num of players, description, rank, level requirement
 
+        private async Task<List<GamePostViewModel>> GetGamePostViewModelsAsync()
+        {
+            return await _context.UserPosts
+                .Include(up => up.ApplicationUser)
+                .Include(up => up.Post)
+                    .ThenInclude(p => p.Game)
+                .Select(up => new GamePostViewModel
+                {
+                    GameName = up.Post.Game.Title,
+                    UserName = up.ApplicationUser.UserName,
+                    TimePosted = up.Post.Timestamp,
+                    PostDescription = up.Post.Description
+                })
+                .ToListAsync();
+        }
 
         public IActionResult Privacy()
         {
