@@ -1,4 +1,8 @@
-﻿<section>
+﻿@using PTEC_Capstone_Project.Models.ViewModels
+@model IEnumerable<GamePostViewModel>
+
+
+<section>
   <form method="post" class="search-box">
     <input
       type="text"
@@ -16,41 +20,41 @@
   <h1>Posts</h1>
 
   <section class="posts">
-    <section class="post">
-      <section class="post-heading">
-        <section class="post-info">
-          <i class="fa-brands fa-d-and-d-beyond svg-fill"></i>
-          <p>Valorant</p>
-        </section>
-        <section class="post-info">
-          <i class="fa-regular fa-user svg-fill"></i>
-          <p>RyeBread</p>
-        </section>
-        <section class="post-info">
-          <i class="fa-regular fa-clock svg-fill"></i>
-          <p>Time Posted</p>
-        </section>
-        <section class="post-info">
-          <i class="fa-solid fa-people-group svg-fill"></i>
-          <p>1/5</p>
-        </section>
-      </section>
-      <section class="post-description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa vel
-          earum eligendi assumenda inventore eum consectetur officia aliquid
-          sequi! Consectetur, nobis vel? Quidem dicta possimus odio repellat
-          fugiat eveniet minus distinctio dolore in, officiis eum magni, neque
-          sequi molestias perspiciatis enim laboriosam a earum commodi doloribus
-          mollitia corrupti amet. Eligendi.
-        </p>
-        <p>Rank:</p>
-        <p>Level Requirement:</p>
-      </section>
-      <section class="request-join-team-btn-container">
-        <button type="submit" class="request-btn">Request to be on team</button>
-      </section>
-    </section>
+
+    @foreach (var gp in Model)
+        {
+            <section class="post">
+              <section class="post-heading">
+                <section class="post-info">
+                  <i class="fa-brands fa-d-and-d-beyond svg-fill"></i>
+                  <p>@gp.GameName</p>
+                </section>
+                <section class="post-info">
+                  <i class="fa-regular fa-user svg-fill"></i>
+                  <p>@gp.UserName</p>
+                </section>
+                <section class="post-info">
+                  <i class="fa-regular fa-clock svg-fill"></i>
+                  <p>@gp.TimePosted</p>
+                </section>
+                <section class="post-info">
+                  <i class="fa-solid fa-people-group svg-fill"></i>
+                  <p>1/5</p>
+                </section>
+              </section>
+              <section class="post-description">
+                <p>@gp.PostDescription</p>
+                <p>Rank:</p>
+                <p>Level Requirement:</p>
+              </section>
+              <section class="request-join-team-btn-container">
+                <button type="submit" class="request-btn">Request to be on team</button>
+              </section>
+            </section>
+        }
+
+
+
     <section class="post">
       <section class="post-heading">
         <section class="post-info">
