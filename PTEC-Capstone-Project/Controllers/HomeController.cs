@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
 using System.Diagnostics;
 
@@ -7,16 +9,22 @@ namespace PTEC_Capstone_Project.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        //game, user, time posted, num of players, description, rank, level requirement
+
 
         public IActionResult Privacy()
         {
