@@ -132,7 +132,7 @@ namespace PTEC_Capstone_Project.Data
             {
                 for (int i = 1; i <= NumUsers; i++)
                 {
-                    await SeedUser(serviceProvider, $"SeedUser{i}", seedUserPw);
+                    await SeedUser(serviceProvider, $"SeedUser{i}", seedUserPw, $"seeduser{i}@example.com");
                 }
             }
         }
@@ -219,7 +219,8 @@ namespace PTEC_Capstone_Project.Data
         public static async Task SeedSuperAdminUser(IServiceProvider serviceProvider, string? seedUserPw)
         {
             string superAdminUserName = "SuperAdmin";
-            string adminId = await SeedUser(serviceProvider, superAdminUserName, seedUserPw);
+            string superAdminEmail = "superadmin@example.com";
+            string adminId = await SeedUser(serviceProvider, superAdminUserName, seedUserPw, superAdminEmail);
 
             await SeedUserRole(serviceProvider, adminId, Constants.SuperAdminRole);
         }
@@ -232,7 +233,7 @@ namespace PTEC_Capstone_Project.Data
         /// <param name="password"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static async Task<string> SeedUser(IServiceProvider serviceProvider, string userName, string password)
+        public static async Task<string> SeedUser(IServiceProvider serviceProvider, string userName, string password, string email)
         {
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>()!;
 
@@ -243,6 +244,7 @@ namespace PTEC_Capstone_Project.Data
                 user = new ApplicationUser()
                 {
                     UserName = userName,
+                    Email = email
                 };
 
                 var result = await userManager.CreateAsync(user, password);

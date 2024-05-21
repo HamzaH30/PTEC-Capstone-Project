@@ -51,13 +51,16 @@ namespace PTEC_Capstone_Project.Controllers
             return View();
         }
 
+        /*
         [HttpGet]
         public async Task<IActionResult> CreatePost()
         {
             ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
             return View();
         }
+        */
 
+        /*
         [HttpPost]
         public async Task<IActionResult> CreatePost(CreatePostViewModel model)
         {
@@ -98,6 +101,7 @@ namespace PTEC_Capstone_Project.Controllers
             ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
             return View(model);
         }
+        */
 
         public IActionResult FavouriteGames()
         {
