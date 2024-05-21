@@ -244,7 +244,8 @@ namespace PTEC_Capstone_Project.Data
                 user = new ApplicationUser()
                 {
                     UserName = userName,
-                    Email = email
+                    Email = email,
+                    EmailConfirmed = true, // required to make sure that for seed users, so that PasswordSignInAsync() will work
                 };
 
                 var result = await userManager.CreateAsync(user, password);
