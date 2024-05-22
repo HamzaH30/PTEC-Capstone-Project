@@ -14,15 +14,40 @@ namespace PTEC_Capstone_Project.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-
-        public SuperAdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public SuperAdminController(ApplicationDbContext context, UserManager<ApplicationUser> um, RoleManager<IdentityRole> rm)
         {
             _context = context;
-            _userManager = userManager;
+            _userManager = um;
+            _roleManager = rm;
         }
 
-        public IActionResult Index
+        [HttpGet] 
+        public async Task<IActionResult> ManageUserRoles()
+        {
+            ReviewUsersViewModel vm = new()
+            {
+                Roles = _roleManager.Roles.Select(r => r.Name).ToList()!
+            };
+
+            foreach (var user in _userManager.Users)
+            {
+                vm.Members.Add(
+                    new ReviewUsersViewModel.Member()
+                    {
+                        Name = user.UserName ?? "no user name",
+                        Roles = (await _userManager.GetRolesAsync(user)).ToHashSet()
+                    }
+                    );
+            }
+
+            return View(vm);
+        }
+
+
+
+        public IActionResult Index;
 
     }
 }
