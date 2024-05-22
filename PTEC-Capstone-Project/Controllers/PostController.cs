@@ -20,14 +20,14 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> IndexAsync(CreatePostViewModel model)
+        public async Task<IActionResult> Create(CreatePostViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -64,8 +64,7 @@ namespace PTEC_Capstone_Project.Controllers
             }
 
             ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
-            return View(model);
+            return View("Index", model);
         }
-
     }
 }

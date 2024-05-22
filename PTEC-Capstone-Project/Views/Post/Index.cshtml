@@ -4,7 +4,7 @@
 <section class="create-post">
     <h1>Create Post</h1>
 
-    <form asp-action="CreatePost" method="post" class="create-post-form">
+    <form asp-controller="Post" asp-action="Create" method="post" class="create-post-form">
         <div>
             <label for="game">Games:</label>
             <select asp-for="GameID" asp-items="ViewBag.Games"></select>
@@ -30,4 +30,3 @@
         </div>
     </form>
 </section>
-
