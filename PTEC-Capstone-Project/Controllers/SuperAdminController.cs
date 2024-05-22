@@ -80,6 +80,20 @@ namespace PTEC_Capstone_Project.Controllers
             return RedirectToAction("ManageUserRoles");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ConfirmRoleRemoval(string roleName, string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                return NotFound($"User '{userName}' not found.");
+            }
+
+            var userIsInRole = await _userManager.IsInRoleAsync(user, roleName);
+            await _userManager.RemoveFromRoleAsync(user, roleName);
+
+            return RedirectToAction("ManageUserRoles");
+        }
 
         public IActionResult Index;
 
