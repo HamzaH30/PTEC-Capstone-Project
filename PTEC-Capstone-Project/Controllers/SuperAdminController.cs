@@ -22,6 +22,7 @@ namespace PTEC_Capstone_Project.Controllers
             _userManager = userManager;
         }
 
+        public IActionResult Index
 
     }
 }

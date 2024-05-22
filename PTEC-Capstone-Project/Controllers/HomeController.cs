@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -102,7 +103,7 @@ namespace PTEC_Capstone_Project.Controllers
             return View(model);
         }
         */
-
+        [Authorize]
         public IActionResult FavouriteGames()
         {
             return View();
