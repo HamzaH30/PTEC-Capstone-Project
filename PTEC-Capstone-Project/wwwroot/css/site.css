@@ -385,6 +385,37 @@ footer {
   text-align: center;
 }
 
+.user {
+  color: var(--colour-white);
+  background-color: white;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  padding: 0;
+}
+
+.user p {
+  margin: 5px;
+}
+
+.delete-button,
+.add-admin-button,
+.remove-admin-button {
+  background-color: #fb2212;
+
+  color: var(--colour-white);
+  font-weight: bold;
+  border: none;
+  border-radius: 5rem;
+  padding: 2px;
+}
+
+.add-admin-button {
+  background-color: lime;
+}
+
 /* Tablet */
 
 @media screen and (min-width: 800px) {
