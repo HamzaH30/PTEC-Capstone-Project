@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
+using PTEC_Capstone_Project.Services;
 
 namespace PTEC_Capstone_Project 
 {
@@ -24,6 +25,9 @@ namespace PTEC_Capstone_Project
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+            // Register the API service to use HttpClient via dependency injection
+            builder.Services.AddHttpClient<GamesApiService>();
 
             var app = builder.Build();
 
