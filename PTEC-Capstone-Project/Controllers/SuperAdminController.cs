@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+   
     public class SuperAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +22,10 @@ namespace PTEC_Capstone_Project.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index
+        public IActionResult Index()
+        {
+            return View();
+        }
 
     }
 }
