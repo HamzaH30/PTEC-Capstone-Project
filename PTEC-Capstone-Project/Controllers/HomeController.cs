@@ -103,11 +103,6 @@ namespace PTEC_Capstone_Project.Controllers
         }
         */
 
-        public IActionResult FavouriteGames()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
