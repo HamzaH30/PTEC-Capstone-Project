@@ -1,1 +1,37 @@
-﻿
+﻿@using PTEC_Capstone_Project.Models.ViewModels
+
+<section>
+    <form method="post" class="search-box">
+        <input type="text"
+               placeholder="Search"
+               name="search-by-game"
+               id="search-by-game" />
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+</section>
+
+
+<section class="Superadmin-controlles">
+    <h1>SuperAdmin Controlles</h1>
+
+
+    @foreach (var u in Model)
+    {
+        <section class="user">
+            <p>@u.name</p>
+            <section class="buttons">
+                @if (u.role = "Admin")
+                {
+                    <button type="submit" class="remove-admin">Remove Admin</button>
+                }
+                else
+                {
+                    <button type="submit" class="add-admin">Add Admin</button>
+                }
+                <button type="submit" class="delete"></button>
+            </section>
+        </section>
+    }
+</section>
