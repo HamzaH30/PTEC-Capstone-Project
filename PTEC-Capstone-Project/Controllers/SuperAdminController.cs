@@ -14,17 +14,32 @@ namespace PTEC_Capstone_Project.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public SuperAdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public SuperAdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var userRoles = from user in _context.Users
+                            join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                            join role in _context.Roles on userRole.RoleId equals role.Id
+                            select new UserRoleDto
+                            {
+                                UserId = user.Id,
+                                UserName = user.UserName,
+                                RoleId = role.Id,
+                                RoleName = role.Name
+                            };
+
+            return userRoles.ToList();
+
+            
         }
 
     }
