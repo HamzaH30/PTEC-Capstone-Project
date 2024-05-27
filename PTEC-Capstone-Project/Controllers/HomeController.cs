@@ -25,10 +25,38 @@ namespace PTEC_Capstone_Project.Controllers
             _roleManager = roleManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(List<GamePostViewModel> searchResults = null)
         {
-            var viewModel = await GetGamePostViewModelsAsync();
+            var viewModel = searchResults ?? await GetGamePostViewModelsAsync();
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return RedirectToAction("Index");
+            }
+
+            List<GamePostViewModel> viewModel = await _context.UserPosts
+                .Include(up => up.ApplicationUser)
+                .Include(up => up.Post)
+                    .ThenInclude(p => p.Game)
+                .Where(up => (up.Post.Game.Title != null && up.Post.Game.Title.Contains(search)) ||
+                             (up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(search)) ||
+                             (up.ApplicationUser.UserName != null && up.ApplicationUser.UserName.Contains(search)) ||
+                             (up.Post.Description != null && up.Post.Description.Contains(search)))
+                .Select(up => new GamePostViewModel
+                {
+                    GameName = up.Post.Game.Title,
+                    UserName = up.ApplicationUser.UserName,
+                    TimePosted = up.Post.Timestamp,
+                    PostDescription = up.Post.Description
+                })
+                .ToListAsync();
+
+            return View("Index", viewModel);
         }
 
         private async Task<List<GamePostViewModel>> GetGamePostViewModelsAsync()
