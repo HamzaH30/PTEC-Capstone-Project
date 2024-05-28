@@ -33,21 +33,40 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(string search)
+        public async Task<IActionResult> Search(string search, string gameTitles, string genre, string username, string description)
         {
-            if (string.IsNullOrEmpty(search))
+            IQueryable<UserPost> query = _context.UserPosts.Include(up => up.ApplicationUser).Include(up => up.Post).ThenInclude(p => p.Game);
+            if (!string.IsNullOrEmpty(search))
             {
-                return RedirectToAction("Index");
+                query = query.Where(up =>
+                    up.Post.Game.Title.Contains(search) ||
+                    (up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(search)) ||
+                    up.ApplicationUser.UserName.Contains(search) ||
+                    up.Post.Description.Contains(search));
             }
 
-            List<GamePostViewModel> viewModel = await _context.UserPosts
-                .Include(up => up.ApplicationUser)
-                .Include(up => up.Post)
-                    .ThenInclude(p => p.Game)
-                .Where(up => (up.Post.Game.Title != null && up.Post.Game.Title.Contains(search)) ||
-                             (up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(search)) ||
-                             (up.ApplicationUser.UserName != null && up.ApplicationUser.UserName.Contains(search)) ||
-                             (up.Post.Description != null && up.Post.Description.Contains(search)))
+            if (!string.IsNullOrEmpty(gameTitles))
+            {
+                var games = gameTitles.Split(',').Select(g => g.Trim());
+                query = query.Where(up => games.Contains(up.Post.Game.Title));
+            }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                query = query.Where(up => up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(genre));
+            }
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                query = query.Where(up => up.ApplicationUser.UserName.Contains(username));
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                query = query.Where(up => up.Post.Description.Contains(description));
+            }
+
+            List<GamePostViewModel> viewModel = await query
                 .Select(up => new GamePostViewModel
                 {
                     GameName = up.Post.Game.Title,
