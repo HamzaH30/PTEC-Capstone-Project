@@ -28,6 +28,7 @@ namespace PTEC_Capstone_Project.Controllers
         public async Task<IActionResult> Index(List<GamePostViewModel> searchResults = null)
         {
             var viewModel = searchResults ?? await GetGamePostViewModelsAsync();
+            viewModel = viewModel.OrderByDescending(vm => vm.TimePosted).ToList();
             return View(viewModel);
         }
 
@@ -54,6 +55,7 @@ namespace PTEC_Capstone_Project.Controllers
                     TimePosted = up.Post.Timestamp,
                     PostDescription = up.Post.Description
                 })
+                .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
 
             return View("Index", viewModel);
@@ -72,6 +74,7 @@ namespace PTEC_Capstone_Project.Controllers
                     TimePosted = up.Post.Timestamp,
                     PostDescription = up.Post.Description
                 })
+                .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
         }
 
