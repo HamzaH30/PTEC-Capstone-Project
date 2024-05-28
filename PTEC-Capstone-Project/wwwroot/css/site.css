@@ -480,6 +480,10 @@ footer {
   }
 }
 @media screen and (min-width: 1000px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
   h1 {
     font-size: 48px;
   }
@@ -519,31 +523,15 @@ footer {
     font-size: 22px;
     text-decoration: none;
   }
+  /* Search */
 
-  /* Search bar on posts page styles */
-
-  .search-box button,
-  .search-box input {
-    min-height: 28px;
-    height: 30px;
-    border: 1px solid var(--colour-orange);
-    outline: none;
+  .search-section {
+      width: 80%;
+      justify-self: center;
+      align-self: center;
   }
 
-  .search-box input {
-    width: 80%;
-    border-radius: 50px 0 0 50px;
-    padding: 15px;
-  }
-
-  .search-box button {
-    background-color: var(--colour-orange);
-    width: 30px;
-    height: 32px;
-    color: var(--colour-white);
-  }
-  /* End of search button posts styles */
-
+  /* End of Search*/
   /*Laptop posts*/
   .posts {
     display: grid;
