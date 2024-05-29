@@ -48,7 +48,7 @@ namespace PTEC_Capstone_Project.Controllers
             if (!string.IsNullOrEmpty(gameTitles))
             {
                 var games = gameTitles.Split(',').Select(g => g.Trim());
-                query = query.Where(up => games.Contains(up.Post.Game.Title));
+                query = query.Where(up => games.Any(game => up.Post.Game.Title.Contains(game)));
             }
 
             if (!string.IsNullOrEmpty(genre))
