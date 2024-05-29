@@ -23,23 +23,22 @@ namespace PTEC_Capstone_Project.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> IndexAsync()
         {
-            var userRoles = from user in _context.Users
-                            join userRole in _context.UserRoles on user.Id equals userRole.UserId
-                            join role in _context.Roles on userRole.RoleId equals role.Id
-                            select new UserRoleDto
-                            {
-                                UserId = user.Id,
-                                UserName = user.UserName,
-                                RoleId = role.Id,
-                                RoleName = role.Name
-                            };
+            /*make a list or group of users with each users id, username, and roles*/
+            var users = _userManager.Users.ToList();
+            var userRoles = new Dictionary<string, List<string>>();
 
-            return userRoles.ToList();
+            foreach (var user in users)
+            {
+                var roles = _userManager.GetRolesAsync((ApplicationUser)user).Result.ToList();
+                userRoles.Add(user.Id, roles);
+            }
+            ViewBag.UserRoles = userRoles;
 
-            
+            return View(users);
+
         }
 
     }

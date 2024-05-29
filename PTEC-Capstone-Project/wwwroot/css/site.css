@@ -400,6 +400,9 @@ footer {
   margin: 5px;
   color: black;
 }
+.buttons {
+  display: flex;
+}
 
 .delete-button,
 .add-admin-button,
