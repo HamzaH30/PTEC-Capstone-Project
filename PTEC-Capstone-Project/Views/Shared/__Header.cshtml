@@ -13,6 +13,7 @@
     <section class="nav-bar">
       <a asp-controller="Home" asp-action="">View Posts</a>
       <a asp-controller="Post" asp-action="Index">Create Post</a>
+      <a asp-controller="Post" asp-action="PostRequests">Post Requests</a>
       <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
       <partial name="_LoginPartial" />
       </section>
@@ -20,8 +21,8 @@
 </header>
 <section class="mobile-menu" id="mobile-menu">
   <a asp-controller="Home" asp-action="">View Posts</a>
-  <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
-  <a asp-controller="Home" asp-action="PostRequests">Post Requests</a>
+  <a asp-controller="Post" asp-action="Index">Create Post</a>
+  <a asp-controller="Post" asp-action="PostRequests">Post Requests</a>
   <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
     <partial name="_LoginPartial" />
 </section>
