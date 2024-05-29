@@ -8,5 +8,15 @@ namespace PTEC_Capstone_Project.Controllers
         {
             return View();
         }
+
+        public IActionResult Requests()
+        {
+            return View();
+        }
+
+        public IActionResult Notifications()
+        {
+            return View();
+        }
     }
 }
