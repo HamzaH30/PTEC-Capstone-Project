@@ -2,17 +2,48 @@
 @model IEnumerable<GamePostViewModel>
 
 
-<section>
-  <form method="post" class="search-box">
-    <input
-      type="text"
-      placeholder="Search"
-      name="search-by-game"
-      id="search-by-game"
-    />
-    <button type="submit">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
+<section class="search-section"> 
+  <form asp-controller="Home" asp-action="Search" method="post" class="search-box">
+        <div class="search-main">
+            <input type="text"
+                   placeholder="Search"
+                   name="search"
+                   id="search" />
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <button type="button" id="advanced-search-toggle" class="advanced-search-button">Advanced Search Options</button>
+        <div id="advanced-search-fields" class="advanced-search-fields">
+            <div>
+                <label for="gameTitles">Search by Game Titles (comma-separated):</label>
+                <input type="text"
+                       placeholder="e.g., Game1, Game2"
+                       name="gameTitles"
+                       id="gameTitles" />
+            </div>
+            <div>
+                <label for="genre">Search by Genre:</label>
+                <input type="text"
+                       placeholder="e.g., RPG"
+                       name="genre"
+                       id="genre" />
+            </div>
+            <div>
+                <label for="username">Search by Username:</label>
+                <input type="text"
+                       placeholder="e.g., JohnDoe"
+                       name="username"
+                       id="username" />
+            </div>
+            <div>
+                <label for="description">Search by Description:</label>
+                <input type="text"
+                       placeholder="e.g., fun game"
+                       name="description"
+                       id="description" />
+            </div>
+        </div>
   </form>
 </section>
 
@@ -54,3 +85,16 @@
         }
   </section>
 </section>
+
+@section Scripts {
+    <script>
+        document.getElementById('advanced-search-toggle').addEventListener('click', function() {
+            var advancedFields = document.getElementById('advanced-search-fields');
+            if (advancedFields.style.display === 'none' || advancedFields.style.display === '') {
+                advancedFields.style.display = 'block';
+            } else {
+                advancedFields.style.display = 'none';
+            }
+        });
+    </script>
+}

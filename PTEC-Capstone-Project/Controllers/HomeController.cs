@@ -25,10 +25,59 @@ namespace PTEC_Capstone_Project.Controllers
             _roleManager = roleManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(List<GamePostViewModel> searchResults = null)
         {
-            var viewModel = await GetGamePostViewModelsAsync();
+            var viewModel = searchResults ?? await GetGamePostViewModelsAsync();
+            viewModel = viewModel.OrderByDescending(vm => vm.TimePosted).ToList();
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search, string gameTitles, string genre, string username, string description)
+        {
+            IQueryable<UserPost> query = _context.UserPosts.Include(up => up.ApplicationUser).Include(up => up.Post).ThenInclude(p => p.Game);
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(up =>
+                    up.Post.Game.Title.Contains(search) ||
+                    (up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(search)) ||
+                    up.ApplicationUser.UserName.Contains(search) ||
+                    up.Post.Description.Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(gameTitles))
+            {
+                var games = gameTitles.Split(',').Select(g => g.Trim());
+                query = query.Where(up => games.Any(game => up.Post.Game.Title.Contains(game)));
+            }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                query = query.Where(up => up.Post.Game.Genre != null && up.Post.Game.Genre.Contains(genre));
+            }
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                query = query.Where(up => up.ApplicationUser.UserName.Contains(username));
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                query = query.Where(up => up.Post.Description.Contains(description));
+            }
+
+            List<GamePostViewModel> viewModel = await query
+                .Select(up => new GamePostViewModel
+                {
+                    GameName = up.Post.Game.Title,
+                    UserName = up.ApplicationUser.UserName,
+                    TimePosted = up.Post.Timestamp,
+                    PostDescription = up.Post.Description
+                })
+                .OrderByDescending(up => up.TimePosted)
+                .ToListAsync();
+
+            return View("Index", viewModel);
         }
 
         private async Task<List<GamePostViewModel>> GetGamePostViewModelsAsync()
@@ -44,6 +93,7 @@ namespace PTEC_Capstone_Project.Controllers
                     TimePosted = up.Post.Timestamp,
                     PostDescription = up.Post.Description
                 })
+                .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
         }
 
