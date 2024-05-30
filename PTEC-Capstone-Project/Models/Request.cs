@@ -11,9 +11,13 @@ namespace PTEC_Capstone_Project.Models
         public int Id { get; set; }
         public DateTime Timestamp { get; set; }
 
+
+
         // Foreign Key Property
         public string SenderID { get; set; }
         public int StatusID { get; set; }
+
+
 
         // Navigation Properties
         [ForeignKey("SenderID")]
