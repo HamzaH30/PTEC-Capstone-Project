@@ -17,7 +17,6 @@ namespace PTEC_Capstone_Project.Data
             }
 
             await SeedSuperAdminUser(serviceProvider, seedUserPw);
-            await AddRoles(serviceProvider, [Constants.AdminRole]);
 
             List<Task> seedDataTasks =
             [
@@ -35,6 +34,8 @@ namespace PTEC_Capstone_Project.Data
             // Once all the data has been seeded, update the database
             await Task.WhenAll(seedDataTasks);
             var dbContext = serviceProvider.GetService<ApplicationDbContext>()!;
+
+            await AddRoles(serviceProvider, [Constants.AdminRole]); 
             await dbContext.SaveChangesAsync();
         }
 

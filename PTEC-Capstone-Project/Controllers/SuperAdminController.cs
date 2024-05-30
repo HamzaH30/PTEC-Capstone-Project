@@ -78,7 +78,7 @@ namespace PTEC_Capstone_Project.Controllers
                 // If the user is not in the role, add the role
                 await _userManager.AddToRoleAsync(user, roleName);
             }
-            return RedirectToAction("ManageUserRoles");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
