@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
-   
+    [Authorize(Roles = "Super Admin")]
     public class SuperAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
