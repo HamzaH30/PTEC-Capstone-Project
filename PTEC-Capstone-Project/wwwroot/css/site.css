@@ -407,6 +407,7 @@ footer {
 .delete-button,
 .add-admin-button,
 .remove-admin-button,
+.remove-super-admin-button,
 .add-super-admin-button {
   background-color: #fb2212;
 
