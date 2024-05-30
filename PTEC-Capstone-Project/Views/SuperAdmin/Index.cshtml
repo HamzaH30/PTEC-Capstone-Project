@@ -1,5 +1,4 @@
-﻿@model List<ApplicationUser>
-@using PTEC_Capstone_Project.Models.ViewModels
+﻿@model PTEC_Capstone_Project.Models.ViewModels.ReviewUsersViewModel
 
 <section>
     <form method="post" class="search-box">
@@ -18,53 +17,32 @@
     <h1>SuperAdmin Controls</h1>
 
 
-     @foreach (var u in Model)
+     @foreach (var user in Model.Members)
     { 
         <section class="user">
-            <p>@u.UserName</p>
+            <p>@user.Name</p>
             <section class="buttons">
-           
-                
-                    @if(ViewBag.UserRoles[u.Id].Contains("Super Admin"))
+                @foreach (string role in Model.Roles)
+                {
+                    @if (user.Roles.Contains(role))
                     {
-
-                        <form asp-controller="SuperAdmin">
-                            <input type="hidden" name="Id" value="@u.Id" />
-                            <input type="hidden" name="role" value="SuperAdmin" />
-                            <button type="submit" class="remove-super-admin-button">Remove Super Admin</button>
-                        </form>
-                    }
-                    else 
-                    {
-                        <form asp-controller="SuperAdmin">
-                            <input type="hidden" name="Id" value="@u.Id" />
-                            <input type="hidden" name="role" value="SuperAdmin" />
-                            <button type="submit" class="add-super-admin-button">Add Super Admin</button>
-                        </form>
-                    }
-               
-                
-                    @if (ViewBag.UserRoles[u.Id].Contains("Admin"))
-                    {
-                        <form asp-controller="Admin">
-                            <input type="hidden" name="Id" value="@u.Id" />
-                            <input type="hidden" name="role" value="Admin" />
-                            <button type="submit" class="remove-admin-button">Remove Admin</button>
+                        <form asp-controller="Admin" asp-action="ToggleRole" method="post">
+                             <input type="hidden" name="roleName" value="@role" />
+                            <input type="hidden" name="userName" value="@user.Name" />
+                            <button class="add-admin-button" type="submit">Remove @role</button>
                         </form>
                     }
                     else
                     {
-                        <form asp-controller="Admin">
-                        <input type="hidden" name="Id" value="@u.Id" />
-                        <input type="hidden" name="role" value="Admin" />
-                        <button type="submit" class="add-admin-button">Add Admin</button>
+                        <form asp-controller="Admin" asp-action="ToggleRole" method="post">
+                            <input type="hidden" name="roleName" value="@role" />
+                            <input type="hidden" name="userName" value="@user.Name" />
+                            <button class="remove-admin-button" type="submit">Add @role</button>
                         </form>
-                    } 
+                    }
+                }
                 
-                
-                    <button type="submit" class="delete-button">Delete User</button>
-                
-            
+                <button type="submit" class="ban-button">Ban User</button>
             </section>
         </section>
     } 

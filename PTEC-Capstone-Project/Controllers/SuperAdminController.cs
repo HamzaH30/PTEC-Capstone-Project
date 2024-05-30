@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
-    [Authorize(Roles = "Super Admin")]
+    [Authorize(Roles = Constants.SuperAdminRole)]
     public class SuperAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +25,7 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpGet] 
-        public async Task<IActionResult> ManageUserRoles()
+        public async Task<IActionResult> Index()
         {
             ReviewUsersViewModel vm = new()
             {
@@ -95,10 +95,12 @@ namespace PTEC_Capstone_Project.Controllers
 
             return RedirectToAction("ManageUserRoles");
         }
+        
+        /*
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-            /*make a list or group of users with each users id, username, and roles*/
+            // make a list or group of users with each users id, username, and roles
             var users = _userManager.Users.ToList();
             var userRoles = new Dictionary<string, List<string>>();
 
@@ -113,7 +115,7 @@ namespace PTEC_Capstone_Project.Controllers
             return View(users);
 
         }
-
+        */
 
 
     }

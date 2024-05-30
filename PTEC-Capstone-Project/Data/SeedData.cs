@@ -17,6 +17,7 @@ namespace PTEC_Capstone_Project.Data
             }
 
             await SeedSuperAdminUser(serviceProvider, seedUserPw);
+            await AddRoles(serviceProvider, [Constants.AdminRole]);
 
             List<Task> seedDataTasks =
             [
@@ -283,6 +284,20 @@ namespace PTEC_Capstone_Project.Data
             IdentityResult result = await userManager.AddToRoleAsync(user, roleName);
 
             return result;
+        }
+
+        public static async Task<IdentityResult> AddRoles(IServiceProvider serviceProvider, params string[] roles)
+        {
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>()!;
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+
+            return IdentityResult.Success;
         }
     }
 }
