@@ -440,6 +440,44 @@ footer {
   text-align: center;
 }
 
+.user {
+  color: var(--colour-white);
+  background-color: white;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  padding: 2px 7px;
+}
+
+.user p {
+  margin: 5px;
+  color: black;
+}
+.buttons {
+  display: flex;
+}
+
+.delete-button,
+.add-admin-button,
+.remove-admin-button,
+.remove-super-admin-button,
+.add-super-admin-button {
+  background-color: #fb2212;
+
+  color: var(--colour-white);
+  font-weight: bold;
+  border: none;
+  border-radius: 5rem;
+  padding: 3px;
+}
+
+.add-admin-button,
+.add-super-admin-button {
+  background-color: lime;
+}
+
 /* Tablet */
 
 @media screen and (min-width: 800px) {
