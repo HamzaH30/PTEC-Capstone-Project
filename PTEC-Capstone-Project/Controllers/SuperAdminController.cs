@@ -95,7 +95,63 @@ namespace PTEC_Capstone_Project.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search, string roles, string username)
+        {
+            IQueryable<ApplicationUser> query = _userManager.Users;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(u =>
+                    u.UserName.Contains(search) ||
+                    u.Email.Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(roles))
+            {
+                var roleList = roles.Split(',').Select(r => r.Trim()).ToList();
+                var usersInRoles = new List<ApplicationUser>();
+
+                foreach (var role in roleList)
+                {
+                    var usersInRole = await _userManager.GetUsersInRoleAsync(role);
+                    usersInRoles.AddRange(usersInRole);
+                }
+
+                // Get distinct users in roles to avoid duplicates
+                var distinctUsersInRoles = usersInRoles.Distinct().Select(u => u.Id).ToList();
+
+                // Filter the query to include only users present in distinctUsersInRoles
+                query = query.Where(u => distinctUsersInRoles.Contains(u.Id));
+            }
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                query = query.Where(u => u.UserName.Contains(username));
+            }
+
+            var usersList = await query.ToListAsync();
+
+            List<ReviewUsersViewModel.Member> members = usersList
+                .Select(u => new ReviewUsersViewModel.Member
+                {
+                    Name = u.UserName,
+                    Roles = _userManager.GetRolesAsync(u).Result.ToHashSet()
+                })
+                .OrderBy(u => u.Name)
+                .ToList();
+
+
+            ReviewUsersViewModel vm = new()
+            {
+                Roles = _roleManager.Roles.Select(r => r.Name).ToList(),
+                Members = members
+            };
+
+            return View("Index", vm);
+        }
+
         /*
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
