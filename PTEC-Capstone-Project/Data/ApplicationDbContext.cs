@@ -16,6 +16,7 @@ namespace PTEC_Capstone_Project.Data
         public virtual DbSet<UserLinkedAccount> UserLinkedAccounts  { get; set; }
         public virtual DbSet<UserNotification> UserNotifications { get; set; }
         public virtual DbSet<UserPost> UserPosts { get; set; }
+        public virtual DbSet<UserRequests> UserRequests { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
