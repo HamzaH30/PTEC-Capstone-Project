@@ -93,7 +93,7 @@ namespace PTEC_Capstone_Project.Controllers
             var userIsInRole = await _userManager.IsInRoleAsync(user, roleName);
             await _userManager.RemoveFromRoleAsync(user, roleName);
 
-            return RedirectToAction("ManageUserRoles");
+            return RedirectToAction("Index");
         }
         
         /*
