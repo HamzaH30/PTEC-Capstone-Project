@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
-    [Authorize(Roles = "Super Admin")]
+    [Authorize(Roles = Constants.SuperAdminRole)]
     public class SuperAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +25,7 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpGet] 
-        public async Task<IActionResult> ManageUserRoles()
+        public async Task<IActionResult> Index()
         {
             ReviewUsersViewModel vm = new()
             {
@@ -78,7 +78,7 @@ namespace PTEC_Capstone_Project.Controllers
                 // If the user is not in the role, add the role
                 await _userManager.AddToRoleAsync(user, roleName);
             }
-            return RedirectToAction("ManageUserRoles");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -93,12 +93,70 @@ namespace PTEC_Capstone_Project.Controllers
             var userIsInRole = await _userManager.IsInRoleAsync(user, roleName);
             await _userManager.RemoveFromRoleAsync(user, roleName);
 
-            return RedirectToAction("ManageUserRoles");
+            return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search, string roles, string username)
+        {
+            IQueryable<ApplicationUser> query = _userManager.Users;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(u =>
+                    u.UserName.Contains(search) ||
+                    u.Email.Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(roles))
+            {
+                var roleList = roles.Split(',').Select(r => r.Trim()).ToList();
+                var usersInRoles = new List<ApplicationUser>();
+
+                foreach (var role in roleList)
+                {
+                    var usersInRole = await _userManager.GetUsersInRoleAsync(role);
+                    usersInRoles.AddRange(usersInRole);
+                }
+
+                // Get distinct users in roles to avoid duplicates
+                var distinctUsersInRoles = usersInRoles.Distinct().Select(u => u.Id).ToList();
+
+                // Filter the query to include only users present in distinctUsersInRoles
+                query = query.Where(u => distinctUsersInRoles.Contains(u.Id));
+            }
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                query = query.Where(u => u.UserName.Contains(username));
+            }
+
+            var usersList = await query.ToListAsync();
+
+            List<ReviewUsersViewModel.Member> members = usersList
+                .Select(u => new ReviewUsersViewModel.Member
+                {
+                    Name = u.UserName,
+                    Roles = _userManager.GetRolesAsync(u).Result.ToHashSet()
+                })
+                .OrderBy(u => u.Name)
+                .ToList();
+
+
+            ReviewUsersViewModel vm = new()
+            {
+                Roles = _roleManager.Roles.Select(r => r.Name).ToList(),
+                Members = members
+            };
+
+            return View("Index", vm);
+        }
+
+        /*
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-            /*make a list or group of users with each users id, username, and roles*/
+            // make a list or group of users with each users id, username, and roles
             var users = _userManager.Users.ToList();
             var userRoles = new Dictionary<string, List<string>>();
 
@@ -113,7 +171,7 @@ namespace PTEC_Capstone_Project.Controllers
             return View(users);
 
         }
-
+        */
 
 
     }

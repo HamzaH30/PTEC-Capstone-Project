@@ -1,0 +1,11 @@
+﻿@using PTEC_Capstone_Project.Data
+
+<h2>Warning</h2>
+<p>@ViewBag.WarningMessage</p>
+
+<form asp-controller="SuperAdmin" asp-action="ConfirmRoleRemoval" method="post">
+    <input type="hidden" name="userName" value="@User.Identity.Name" />
+    <input type="hidden" name="roleName" value="@Constants.SuperAdminRole" />
+    <button type="submit" class="add-super-admin-button">Revoke Super Admin Role</button>
+    <button type="button" class="remove-super-admin-button" onclick="history.back()">Cancel</button>
+</form>
