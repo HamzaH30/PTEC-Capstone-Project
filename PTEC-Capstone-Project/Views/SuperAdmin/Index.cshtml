@@ -1,14 +1,33 @@
 ﻿@model PTEC_Capstone_Project.Models.ViewModels.ReviewUsersViewModel
 
-<section>
-    <form method="post" class="search-box">
-        <input type="text"
-               placeholder="Search"
-               name="search-by-game"
-               id="search-by-game" />
-        <button type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+<section class="search-section">
+    <form asp-controller="SuperAdmin" asp-action="Search" method="post" class="search-box">
+        <div class="search-main">
+            <input type="text"
+                   placeholder="Search"
+                   name="search"
+                   id="search" />
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <button type="button" id="advanced-search-toggle" class="advanced-search-button">Advanced Search Options</button>
+        <div id="advanced-search-fields" class="advanced-search-fields">
+            <div>
+                <label for="gameTitles">Search by Roles (comma-separated):</label>
+                <input type="text"
+                       placeholder="e.g., Admin, Super Admin"
+                       name="roles"
+                       id="roles" />
+            </div>
+            <div>
+                <label for="genre">Search by Username:</label>
+                <input type="text"
+                       placeholder="e.g., John Doe"
+                       name="username"
+                       id="username" />
+            </div>
+        </div>
     </form>
 </section>
 
@@ -47,3 +66,16 @@
         </section>
     } 
 </section>
+
+@section Scripts {
+    <script>
+        document.getElementById('advanced-search-toggle').addEventListener('click', function () {
+            var advancedFields = document.getElementById('advanced-search-fields');
+            if (advancedFields.style.display === 'none' || advancedFields.style.display === '') {
+                advancedFields.style.display = 'block';
+            } else {
+                advancedFields.style.display = 'none';
+            }
+        });
+    </script>
+}
