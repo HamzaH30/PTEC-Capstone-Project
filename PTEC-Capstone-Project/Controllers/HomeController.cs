@@ -165,5 +165,14 @@ namespace PTEC_Capstone_Project.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        [HttpPost]
+        public IActionResult CreateRequest(int postID)
+        {
+            Console.WriteLine($"Button works you cuck {postID}");
+
+            return View("Index", "Home");
+        }
     }
 }
