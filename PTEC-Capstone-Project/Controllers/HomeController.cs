@@ -72,7 +72,8 @@ namespace PTEC_Capstone_Project.Controllers
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
                     TimePosted = up.Post.Timestamp,
-                    PostDescription = up.Post.Description
+                    PostDescription = up.Post.Description,
+                    PostID = up.PostID
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
