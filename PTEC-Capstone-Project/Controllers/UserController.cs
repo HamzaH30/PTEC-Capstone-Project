@@ -18,5 +18,11 @@ namespace PTEC_Capstone_Project.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public void CreateRequest(int postID)
+        {
+            Console.WriteLine($"Button works you cuck {postID}");
+        }
     }
 }
