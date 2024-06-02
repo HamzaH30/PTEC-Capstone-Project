@@ -170,9 +170,81 @@ namespace PTEC_Capstone_Project.Controllers
         [HttpPost]
         public IActionResult CreateRequest(int postID)
         {
-            Console.WriteLine($"Button works you cuck {postID}");
+            CreateReqObjs(postID);
+            CreateNotifObjs(postID);
 
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+        public async void CreateReqObjs(int postID)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                throw new ApplicationException("Unexpected Action");
+            }
+
+            var request = new Request
+            {
+                Timestamp = DateTime.Now,
+                SenderID = (from up in _context.UserPosts
+                            where up.PostID == postID
+                            select up.UserID).FirstOrDefault(),
+                StatusID = GetOrCreateReqStatus("Pending"),
+            };
+
+            _context.Requests.Add(request);
+            _context.SaveChanges();
+
+            var userReq = CreateUserReqObj(user, request);
+
+            _context.UserRequests.Add(userReq);
+            _context.SaveChanges();
+        }
+
+        public int GetOrCreateReqStatus(string status ) 
+        {
+            var reqStsId = (from sts in _context.RequestStatuses
+                          where status == sts.Description
+                          select sts.Id).FirstOrDefault();
+
+            if (reqStsId == null)
+            {
+                var newReqSts = new RequestStatus
+                {
+                    Description = status,
+                };
+
+                _context.RequestStatuses.Add(newReqSts);
+                _context.SaveChanges();
+            }
+
+
+            reqStsId = (from sts in _context.RequestStatuses
+                      where status == sts.Description
+                      select sts.Id).FirstOrDefault();
+
+            return reqStsId;
+        }
+
+        public UserRequests CreateUserReqObj(ApplicationUser? user, Request request)
+        {
+            var userRequest = new UserRequests
+            {
+                UserID = user.Id,
+                RequestID = request.Id
+            };
+
+            return userRequest;
+        }
+
+        public async void CreateNotifObjs(int postID)
+        {
+            var user = await _userManager.GetUserAsync(User);
         }
     }
 }
