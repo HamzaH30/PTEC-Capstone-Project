@@ -171,7 +171,7 @@ namespace PTEC_Capstone_Project.Controllers
         public IActionResult CreateRequest(int postID)
         {
             CreateReqObjs(postID);
-            CreateNotifObjs(postID);
+            //CreateNotifObjs(postID);
 
             return RedirectToAction("Index", "Home");
         }
@@ -179,7 +179,7 @@ namespace PTEC_Capstone_Project.Controllers
 
 
 
-        public async void CreateReqObjs(int postID)
+        public async Task CreateReqObjs(int postID)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -188,22 +188,29 @@ namespace PTEC_Capstone_Project.Controllers
                 throw new ApplicationException("Unexpected Action");
             }
 
+            var userPostUser = await (from up in _context.UserPosts
+                                      where up.PostID == postID
+                                      select up.UserID).FirstOrDefaultAsync();
+
+            if (userPostUser == null)
+            {
+                throw new ApplicationException("User not found for the post.");
+            }
+
             var request = new Request
             {
                 Timestamp = DateTime.Now,
-                SenderID = (from up in _context.UserPosts
-                            where up.PostID == postID
-                            select up.UserID).FirstOrDefault(),
+                SenderID = userPostUser,
                 StatusID = GetOrCreateReqStatus("Pending"),
             };
 
             _context.Requests.Add(request);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             var userReq = CreateUserReqObj(user, request);
 
             _context.UserRequests.Add(userReq);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public int GetOrCreateReqStatus(string status ) 
@@ -245,6 +252,13 @@ namespace PTEC_Capstone_Project.Controllers
         public async void CreateNotifObjs(int postID)
         {
             var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                throw new ApplicationException("Unexpected Action");
+            }
+
+
         }
     }
 }
