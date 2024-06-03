@@ -202,7 +202,7 @@ namespace PTEC_Capstone_Project.Controllers
             var request = new Models.Request
             {
                 Timestamp = DateTime.Now,
-                RecieverID = userPostUser.UserID,
+                PostID = postID,
                 StatusID = GetOrCreateReqStatus("Pending"),
             };
 
@@ -266,7 +266,6 @@ namespace PTEC_Capstone_Project.Controllers
             {
                 IsRead = false,
                 Timestamp = DateTime.Now,
-                SenderID = userPostUser,
                 PostID = postID,
                 TypeID = 1
             };
