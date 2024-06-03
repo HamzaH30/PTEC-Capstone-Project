@@ -93,7 +93,9 @@ namespace PTEC_Capstone_Project.Controllers
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
                     TimePosted = up.Post.Timestamp,
-                    PostDescription = up.Post.Description
+                    PostDescription = up.Post.Description,
+                    PostID = up.PostID
+
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
@@ -169,10 +171,17 @@ namespace PTEC_Capstone_Project.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateRequest(int postID)
+        public async Task<IActionResult> CreateRequest(int postID)
         {
-            CreateReqObjs(postID);
-            CreateNotifObjs(postID);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException("Unexpected Action");
+            }
+
+
+            CreateReqObjs(postID, user);
+            CreateNotifObjs(postID, user);
 
             return RedirectToAction("Index", "Home");
         }
@@ -180,14 +189,9 @@ namespace PTEC_Capstone_Project.Controllers
 
 
 
-        public async Task CreateReqObjs(int postID)
+        public async Task CreateReqObjs(int postID, ApplicationUser user)
         {
-            var user = await _userManager.GetUserAsync(User);
 
-            if (user == null)
-            {
-                throw new ApplicationException("Unexpected Action");
-            }
 
             var userPostUser = await (from up in _context.UserPosts
                                       where up.PostID == postID
@@ -250,15 +254,8 @@ namespace PTEC_Capstone_Project.Controllers
             return userRequest;
         }
 
-        public async Task CreateNotifObjs(int postID)
+        public async Task CreateNotifObjs(int postID, ApplicationUser user)
         {
-            var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
-            {
-                throw new ApplicationException("Unexpected Action");
-            }
-
             var userPostUser = await (from up in _context.UserPosts
                                       where up.PostID == postID
                                       select up.UserID).FirstOrDefaultAsync();
