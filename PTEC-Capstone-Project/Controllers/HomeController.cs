@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -197,7 +198,7 @@ namespace PTEC_Capstone_Project.Controllers
                 throw new ApplicationException("User not found for the post.");
             }
 
-            var request = new Request
+            var request = new Models.Request
             {
                 Timestamp = DateTime.Now,
                 SenderID = userPostUser,
@@ -238,7 +239,7 @@ namespace PTEC_Capstone_Project.Controllers
             return reqStsId;
         }
 
-        public UserRequests CreateUserReqObj(ApplicationUser? user, Request request)
+        public UserRequests CreateUserReqObj(ApplicationUser? user, Models.Request request)
         {
             var userRequest = new UserRequests
             {
@@ -258,7 +259,37 @@ namespace PTEC_Capstone_Project.Controllers
                 throw new ApplicationException("Unexpected Action");
             }
 
+            var userPostUser = await (from up in _context.UserPosts
+                                      where up.PostID == postID
+                                      select up.UserID).FirstOrDefaultAsync();
 
+            var notif = new Notification
+            {
+                IsRead = false,
+                Timestamp = DateTime.Now,
+                RecieverID = userPostUser,
+                PostID = postID,
+                TypeID = 1
+            };
+
+            _context.Notifications.Add(notif);
+            await _context.SaveChangesAsync();
+
+            var userNotif = CreateUserNotifObj(user, notif);
+
+            _context.UserNotifications.Add(userNotif);
+            await _context.SaveChangesAsync();
+        }
+
+        public UserNotification CreateUserNotifObj(ApplicationUser? user, Notification notif)
+        {
+            var userNotif = new UserNotification
+            {
+                UserID = user.Id,
+                NotificationID = notif.Id
+            };
+
+            return userNotif;
         }
     }
 }
