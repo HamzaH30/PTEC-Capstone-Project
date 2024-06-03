@@ -21,8 +21,5 @@ namespace PTEC_Capstone_Project.Models
         [ForeignKey("RequestID")]
         [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Request Request { get; set; }
-
-        [ForeignKey("PostID")]
-        public virtual Post Post { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace PTEC_Capstone_Project.Models
 
 
         // Foreign Key Property
-        public string SenderID { get; set; }
+        public string RecieverID { get; set; }
         public int StatusID { get; set; }
 
 

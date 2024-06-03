@@ -12,7 +12,7 @@ namespace PTEC_Capstone_Project.Models
         public DateTime Timestamp { get; set; }
 
         // Foreign Key Properties
-        public string RecieverID { get; set; }
+        public string SenderID { get; set; }
         public int PostID { get; set; }
         public int TypeID { get; set; }
 
