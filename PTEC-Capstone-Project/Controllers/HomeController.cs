@@ -172,7 +172,7 @@ namespace PTEC_Capstone_Project.Controllers
         public IActionResult CreateRequest(int postID)
         {
             CreateReqObjs(postID);
-            //CreateNotifObjs(postID);
+            CreateNotifObjs(postID);
 
             return RedirectToAction("Index", "Home");
         }
@@ -250,7 +250,7 @@ namespace PTEC_Capstone_Project.Controllers
             return userRequest;
         }
 
-        public async void CreateNotifObjs(int postID)
+        public async Task CreateNotifObjs(int postID)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -262,6 +262,11 @@ namespace PTEC_Capstone_Project.Controllers
             var userPostUser = await (from up in _context.UserPosts
                                       where up.PostID == postID
                                       select up.UserID).FirstOrDefaultAsync();
+
+            if (userPostUser == null)
+            {
+                throw new ApplicationException("User not found for the post.");
+            }
 
             var notif = new Notification
             {
@@ -281,15 +286,13 @@ namespace PTEC_Capstone_Project.Controllers
             await _context.SaveChangesAsync();
         }
 
-        public UserNotification CreateUserNotifObj(ApplicationUser? user, Notification notif)
+        private UserNotification CreateUserNotifObj(ApplicationUser user, Notification notification)
         {
-            var userNotif = new UserNotification
+            return new UserNotification
             {
                 UserID = user.Id,
-                NotificationID = notif.Id
+                NotificationID = notification.Id
             };
-
-            return userNotif;
         }
     }
 }
