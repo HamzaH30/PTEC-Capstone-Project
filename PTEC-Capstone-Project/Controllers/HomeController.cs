@@ -191,11 +191,8 @@ namespace PTEC_Capstone_Project.Controllers
 
         public async Task CreateReqObjs(int postID, ApplicationUser user)
         {
-
-
-            var userPostUser = await (from up in _context.UserPosts
-                                      where up.PostID == postID
-                                      select up.UserID).FirstOrDefaultAsync();
+            // TODO: make the postID and userID into a composite primary key in userposts table. For now using FirstOrDefault to get only one entry
+            UserPost userPostUser = _context.UserPosts.Where(up => up.PostID == postID).FirstOrDefault();
 
             if (userPostUser == null)
             {
@@ -205,7 +202,7 @@ namespace PTEC_Capstone_Project.Controllers
             var request = new Models.Request
             {
                 Timestamp = DateTime.Now,
-                RecieverID = userPostUser,
+                RecieverID = userPostUser.UserID,
                 StatusID = GetOrCreateReqStatus("Pending"),
             };
 
@@ -218,7 +215,7 @@ namespace PTEC_Capstone_Project.Controllers
             await _context.SaveChangesAsync();
         }
 
-        public int GetOrCreateReqStatus(string status ) 
+        public int GetOrCreateReqStatus(string status) 
         {
             var reqStsId = (from sts in _context.RequestStatuses
                           where status == sts.Description

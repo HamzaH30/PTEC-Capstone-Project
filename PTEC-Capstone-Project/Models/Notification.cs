@@ -17,7 +17,7 @@ namespace PTEC_Capstone_Project.Models
         public int TypeID { get; set; }
 
         // Navigation Properties
-        [ForeignKey("RecieverID")]
+        [ForeignKey("SenderID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("PostID")]
         [DeleteBehavior(DeleteBehavior.NoAction)]

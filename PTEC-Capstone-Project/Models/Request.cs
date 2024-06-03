@@ -20,7 +20,7 @@ namespace PTEC_Capstone_Project.Models
 
 
         // Navigation Properties
-        [ForeignKey("SenderID")]
+        [ForeignKey("RecieverID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("StatusID")]
         public virtual RequestStatus RequestStatus { get; set; }
