@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
@@ -8,17 +9,38 @@ namespace PTEC_Capstone_Project.Controllers
     public class RequestController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public RequestController(ApplicationDbContext context) 
+        private readonly UserManager<ApplicationUser> _userManager;
+        public RequestController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) 
         { 
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult CreateRequest(int postID)
+        public async Task<IActionResult> CreateRequest(int postID)
         {
+            // get current user 
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            // check to ensure user isnt null
+            if (user == null) 
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+            // check to make sure request by current user for this post doesnt exist
+            UserRequests checkedUserReq = _context.UserRequests
+                                        .Where(ur => ur.UserID == user.Id && ur.Request.PostID == postID)
+                                        .FirstOrDefault();
+
+            if (checkedUserReq != null)
+            {
+                return View("CannotRequest");
+            }
+
             // find post
             Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
 
@@ -39,7 +61,20 @@ namespace PTEC_Capstone_Project.Controllers
             _context.Requests.Add(req);
             _context.SaveChanges();
 
-            return View();
+
+            // create userRequest model 
+            UserRequests userReq = new UserRequests
+            {
+                RequestID = req.Id,
+                Request = req,
+                UserID = user.Id,
+                ApplicationUser = user,
+            };
+
+            _context.UserRequests.Add(userReq);
+            _context.SaveChanges();
+
+            return View("RequestSuccess");
         }
 
         public RequestStatus CreateOrFindStatus(Statuses status)
