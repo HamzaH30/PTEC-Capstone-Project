@@ -42,7 +42,11 @@ namespace PTEC_Capstone_Project.Controllers
 
         public void CreateOrFindStatus(Statuses status)
         {
-            
+            // does the status exist
+            //_context.RequestStatuses.Where(rs => rs.Description == status)
+
+            // if not create status
+            // if it does return 
         }
     }
 }
