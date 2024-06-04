@@ -168,22 +168,5 @@ namespace PTEC_Capstone_Project.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-        [HttpPost]
-        public async Task<IActionResult> CreateRequest(int postID)
-        {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                throw new ApplicationException("Unexpected Action");
-            }
-
-
-            //CreateReqObjs(postID, user);
-            //CreateNotifObjs(postID, user);
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }
