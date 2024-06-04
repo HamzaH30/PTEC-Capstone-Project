@@ -180,8 +180,8 @@ namespace PTEC_Capstone_Project.Controllers
             }
 
 
-            CreateReqObjs(postID, user);
-            CreateNotifObjs(postID, user);
+            //CreateReqObjs(postID, user);
+            //CreateNotifObjs(postID, user);
 
             return RedirectToAction("Index", "Home");
         }
@@ -189,103 +189,103 @@ namespace PTEC_Capstone_Project.Controllers
 
 
 
-        public async Task CreateReqObjs(int postID, ApplicationUser user)
-        {
-            // TODO: make the postID and userID into a composite primary key in userposts table. For now using FirstOrDefault to get only one entry
-            UserPost userPostUser = _context.UserPosts.Where(up => up.PostID == postID).FirstOrDefault();
+        //public async Task CreateReqObjs(int postID, ApplicationUser user)
+        //{
+        //    // TODO: make the postID and userID into a composite primary key in userposts table. For now using FirstOrDefault to get only one entry
+        //    //UserPost userPostUser = _context.UserPosts.Where(up => up.PostID == postID).FirstOrDefault();
 
-            if (userPostUser == null)
-            {
-                throw new ApplicationException("User not found for the post.");
-            }
+        //    //if (userPostUser == null)
+        //    //{
+        //    //    throw new ApplicationException("User not found for the post.");
+        //    //}
 
-            var request = new Models.Request
-            {
-                Timestamp = DateTime.Now,
-                PostID = postID,
-                StatusID = GetOrCreateReqStatus("Pending"),
-            };
+        //    var request = new Models.Request
+        //    {
+        //        Timestamp = DateTime.Now,
+        //        PostID = postID,
+        //        StatusID = 1 //GetOrCreateReqStatus("Pending"),
+        //    };
 
-            _context.Requests.Add(request);
-            await _context.SaveChangesAsync();
+        //    _context.Requests.Add(request);
+        //    _context.SaveChanges();
 
-            var userReq = CreateUserReqObj(user, request);
+        //    var userReq = CreateUserReqObj(user, request);
 
-            _context.UserRequests.Add(userReq);
-            await _context.SaveChangesAsync();
-        }
+        //    _context.UserRequests.Add(userReq);
+        //    await _context.SaveChangesAsync();
+        //}
 
-        public int GetOrCreateReqStatus(string status) 
-        {
-            var reqStsId = (from sts in _context.RequestStatuses
-                          where status == sts.Description
-                          select sts.Id).FirstOrDefault();
+        //public int GetOrCreateReqStatus(string status) 
+        //{
+        //    var reqStsId = (from sts in _context.RequestStatuses
+        //                  where status == sts.Description
+        //                  select sts.Id).FirstOrDefault();
 
-            if (reqStsId == null)
-            {
-                var newReqSts = new RequestStatus
-                {
-                    Description = status,
-                };
+        //    if (reqStsId == null)
+        //    {
+        //        var newReqSts = new RequestStatus
+        //        {
+        //            Description = status,
+        //        };
 
-                _context.RequestStatuses.Add(newReqSts);
-                _context.SaveChanges();
-            }
+        //        _context.RequestStatuses.Add(newReqSts);
+        //        _context.SaveChanges();
+        //    }
 
 
-            reqStsId = (from sts in _context.RequestStatuses
-                      where status == sts.Description
-                      select sts.Id).FirstOrDefault();
+        //    reqStsId = (from sts in _context.RequestStatuses
+        //              where status == sts.Description
+        //              select sts.Id).FirstOrDefault();
 
-            return reqStsId;
-        }
+        //    return reqStsId;
+        //}
 
-        public UserRequests CreateUserReqObj(ApplicationUser? user, Models.Request request)
-        {
-            var userRequest = new UserRequests
-            {
-                UserID = user.Id,
-                RequestID = request.Id
-            };
+        //public UserRequests CreateUserReqObj(ApplicationUser? user, Models.Request request)
+        //{
+        //    var userRequest = new UserRequests
+        //    {
+        //        UserID = user.Id,
+        //        RequestID = request.Id
+        //    };
 
-            return userRequest;
-        }
+        //    return userRequest;
+        //}
 
-        public async Task CreateNotifObjs(int postID, ApplicationUser user)
-        {
-            var userPostUser = await (from up in _context.UserPosts
-                                      where up.PostID == postID
-                                      select up.UserID).FirstOrDefaultAsync();
+        //public async Task CreateNotifObjs(int postID, ApplicationUser user)
+        //{
+        //    var userPostUser = await (from up in _context.UserPosts
+        //                              where up.PostID == postID
+        //                              select up.UserID).FirstOrDefaultAsync();
 
-            if (userPostUser == null)
-            {
-                throw new ApplicationException("User not found for the post.");
-            }
+        //    if (userPostUser == null)
+        //    {
+        //        throw new ApplicationException("User not found for the post.");
+        //    }
 
-            var notif = new Notification
-            {
-                IsRead = false,
-                Timestamp = DateTime.Now,
-                PostID = postID,
-                TypeID = 1
-            };
+        //    var notif = new Notification
+        //    {
+        //        IsRead = false,
+        //        Timestamp = DateTime.Now,
+        //        PostID = postID,
+        //        TypeID = 1
+        //    };
 
-            _context.Notifications.Add(notif);
-            await _context.SaveChangesAsync();
+        //    _context.Notifications.Add(notif);
+        //    await _context.SaveChangesAsync();
 
-            var userNotif = CreateUserNotifObj(user, notif);
+        //    var userNotif = CreateUserNotifObj(user, notif);
 
-            _context.UserNotifications.Add(userNotif);
-            await _context.SaveChangesAsync();
-        }
+        //    _context.UserNotifications.Add(userNotif);
+        //    await _context.SaveChangesAsync();
+        //}
 
-        private UserNotification CreateUserNotifObj(ApplicationUser user, Notification notification)
-        {
-            return new UserNotification
-            {
-                UserID = user.Id,
-                NotificationID = notification.Id
-            };
-        }
+        //private UserNotification CreateUserNotifObj(ApplicationUser user, Notification notification)
+        //{
+        //    return new UserNotification
+        //    {
+        //        UserID = user.Id,
+        //        NotificationID = notification.Id
+        //    };
+        //}
     }
 }
