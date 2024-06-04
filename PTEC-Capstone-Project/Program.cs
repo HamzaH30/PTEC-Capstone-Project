@@ -27,7 +27,12 @@ namespace PTEC_Capstone_Project
             builder.Services.AddControllersWithViews();
 
             // Register the API service to use HttpClient via dependency injection
-            builder.Services.AddHttpClient<GamesApiService>();
+            //builder.Services.AddHttpClient<GamesApiService>();
+            builder.Services.AddSingleton(new GamesApiService(new HttpClient(), "random_key"));
+            
+            /*
+             * Singleton vs Scoped DI
+             */
 
             var app = builder.Build();
 
@@ -38,6 +43,7 @@ namespace PTEC_Capstone_Project
                 context.Database.Migrate();
 
                 string? seedUserPassword = builder.Configuration["SeedUserPW"];
+                
                 SeedData.Initialize(services, seedUserPassword).Wait();
             }
 

@@ -30,6 +30,7 @@ namespace PTEC_Capstone_Project.Controllers
             return View(viewModel);
         }
 
+
         private async Task<List<GamePostViewModel>> GetGamePostViewModelsAsync()
         {
             return await _context.UserPosts
