@@ -79,7 +79,7 @@
                 <p>Level Requirement:</p>
               </section>
               <section class="request-join-team-btn-container">
-                  <form asp-controller="Home" asp-action="CreateRequest" method="post">
+                  <form asp-controller="Request" asp-action="CreateRequest" method="post">
                       <input type="hidden" name="postID" value="@gp.PostID" id="@gp.PostID" />
                       <button type="submit" class="request-btn">Request to be on team</button>
                   </form>
