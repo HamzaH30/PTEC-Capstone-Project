@@ -71,11 +71,12 @@ namespace PTEC_Capstone_Project.Controllers
                 {
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
-                    TimePosted = up.Post.Timestamp - DateTime.Now,
+                    TimePosted = up.Post.Timestamp,
                     PostDescription = up.Post.Description
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
+            
 
             return View("Index", viewModel);
         }
@@ -90,7 +91,7 @@ namespace PTEC_Capstone_Project.Controllers
                 {
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
-                    TimePosted = up.Post.Timestamp - DateTime.Now,
+                    TimePosted = up.Post.Timestamp,
                     PostDescription = up.Post.Description
                 })
                 .OrderByDescending(up => up.TimePosted)

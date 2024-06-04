@@ -4,7 +4,7 @@
     {
         public string GameName { get; set; }
         public string UserName {  get; set; }
-        public TimeSpan TimePosted { get; set; }
+        public DateTime TimePosted { get; set; }
         public string PostDescription { get; set; }
     }
 }

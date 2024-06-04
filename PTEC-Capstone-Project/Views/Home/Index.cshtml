@@ -54,6 +54,14 @@
 
     @foreach (var gp in Model)
         {
+            //get the current time
+            //get the time it was posted
+            //create a new variable
+            //assign this variable the value of time it was posted - current time
+            //format to minutes
+
+            TimeSpan timeDiff = DateTime.Now - gp.TimePosted;
+
             <section class="post">
               <section class="post-heading">
                 <section class="post-info">
@@ -66,7 +74,7 @@
                 </section>
                 <section class="post-info">
                   <i class="fa-regular fa-clock svg-fill"></i>
-                  <p>@gp.TimePosted</p>
+                  <p>@timeDiff.ToString("mm':'ss")</p>
                 </section>
                 <section class="post-info">
                   <i class="fa-solid fa-people-group svg-fill"></i>
