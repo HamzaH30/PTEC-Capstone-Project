@@ -78,6 +78,7 @@ namespace PTEC_Capstone_Project.Controllers
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
+            
 
             return View("Index", viewModel);
         }

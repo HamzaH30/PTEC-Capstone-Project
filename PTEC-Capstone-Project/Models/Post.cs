@@ -11,6 +11,7 @@ namespace PTEC_Capstone_Project.Models
         [Key]
         public int Id { get; set; }
         public DateTime Timestamp { get; set; }
+        //public TimeSpan Duration { get; set; }
         public string Description { get; set; }
         public bool IsArchived { get; set; } = false;
 

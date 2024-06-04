@@ -48,7 +48,7 @@
                         <form asp-controller="SuperAdmin" asp-action="ToggleRole" method="post">
                              <input type="hidden" name="roleName" value="@role" />
                             <input type="hidden" name="userName" value="@user.Name" />
-                            <button class="add-admin-button" type="submit">Remove @role</button>
+                            <button class="remove-admin-button" type="submit">Remove @role</button>
                         </form>
                     }
                     else
@@ -56,7 +56,7 @@
                         <form asp-controller="SuperAdmin" asp-action="ToggleRole" method="post">
                             <input type="hidden" name="roleName" value="@role" />
                             <input type="hidden" name="userName" value="@user.Name" />
-                            <button class="remove-admin-button" type="submit">Add @role</button>
+                            <button class="add-admin-button" type="submit">Add @role</button>
                         </form>
                     }
                 }
