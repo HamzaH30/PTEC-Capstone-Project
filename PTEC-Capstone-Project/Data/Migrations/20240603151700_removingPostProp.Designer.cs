@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PTEC_Capstone_Project.Data;
 
@@ -11,9 +12,11 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240603151700_removingPostProp")]
+    partial class removingPostProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,6 +267,10 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
+                    b.Property<string>("SenderID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
@@ -273,6 +280,8 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("SenderID");
 
                     b.HasIndex("TypeID");
 
@@ -332,8 +341,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PostID")
-                        .HasColumnType("int");
+                    b.Property<string>("RecieverID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("StatusID")
                         .HasColumnType("int");
@@ -343,7 +353,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("RecieverID");
 
                     b.HasIndex("StatusID");
 
@@ -358,8 +368,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -550,11 +561,19 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("SenderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PTEC_Capstone_Project.Models.NotificationType", "NotificationType")
                         .WithMany()
                         .HasForeignKey("TypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("NotificationType");
 
@@ -574,9 +593,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Request", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("PostID")
+                        .HasForeignKey("RecieverID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -586,7 +605,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Post");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("RequestStatus");
                 });

@@ -13,7 +13,6 @@ namespace PTEC_Capstone_Project.Models
         // Foreign Key Properties 
         public string UserID { get; set; }
         public int RequestID { get; set; }
-        public int PostID { get; set; }
 
         // Navigation Properties
         [ForeignKey("UserID")]
@@ -21,8 +20,5 @@ namespace PTEC_Capstone_Project.Models
         [ForeignKey("RequestID")]
         [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Request Request { get; set; }
-
-        [ForeignKey("PostID")]
-        public virtual Post Post { get; set; }
     }
 }

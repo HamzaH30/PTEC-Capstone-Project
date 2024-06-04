@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +73,8 @@ namespace PTEC_Capstone_Project.Controllers
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
                     TimePosted = up.Post.Timestamp,
-                    PostDescription = up.Post.Description
+                    PostDescription = up.Post.Description,
+                    PostID = up.PostID
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
@@ -91,7 +93,9 @@ namespace PTEC_Capstone_Project.Controllers
                     GameName = up.Post.Game.Title,
                     UserName = up.ApplicationUser.UserName,
                     TimePosted = up.Post.Timestamp,
-                    PostDescription = up.Post.Description
+                    PostDescription = up.Post.Description,
+                    PostID = up.PostID
+
                 })
                 .OrderByDescending(up => up.TimePosted)
                 .ToListAsync();
@@ -163,6 +167,23 @@ namespace PTEC_Capstone_Project.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRequest(int postID)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException("Unexpected Action");
+            }
+
+
+            //CreateReqObjs(postID, user);
+            //CreateNotifObjs(postID, user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

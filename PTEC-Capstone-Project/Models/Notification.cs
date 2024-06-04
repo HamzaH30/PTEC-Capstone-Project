@@ -12,13 +12,13 @@ namespace PTEC_Capstone_Project.Models
         public DateTime Timestamp { get; set; }
 
         // Foreign Key Properties
-        public string RecieverID { get; set; }
+        //public string SenderID { get; set; }
         public int PostID { get; set; }
         public int TypeID { get; set; }
 
         // Navigation Properties
-        [ForeignKey("RecieverID")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        //[ForeignKey("SenderID")]
+        //public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("PostID")]
         [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Post Post { get; set; }
