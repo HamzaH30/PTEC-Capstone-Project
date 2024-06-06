@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using PTEC_Capstone_Project.Data;
@@ -6,6 +7,7 @@ using PTEC_Capstone_Project.Models;
 
 namespace PTEC_Capstone_Project.Controllers
 {
+    [Authorize]
     public class RequestController : Controller
     {
         private readonly ApplicationDbContext _context;
