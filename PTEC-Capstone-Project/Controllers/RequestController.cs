@@ -105,5 +105,26 @@ namespace PTEC_Capstone_Project.Controllers
             // create or find notification type
 
         }
+
+        //public NotificationType CreateOrFindType(Types type)
+        //{
+        //    // does the status exist
+        //    RequestStatus? notifType = _context.NotificationTypes.Where(nt => nt.Name == type).FirstOrDefault();
+
+        //    // if not create status\
+        //    if (reqSts == null)
+        //    {
+        //        reqSts = new RequestStatus
+        //        {
+        //            Name = status
+        //        };
+
+        //        _context.RequestStatuses.Add(reqSts);
+        //        _context.SaveChanges();
+        //    }
+
+        //    // if it does return 
+        //    return reqSts;
+        //}
     }
 }
