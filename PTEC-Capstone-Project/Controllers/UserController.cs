@@ -16,18 +16,35 @@ namespace PTEC_Capstone_Project.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Requests()
         {
-            return View();
+            ApplicationUser? user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+            List<Request> requests = [];
+            List<UserRequests> userReqs = _context.UserRequests.Where(ur => ur.UserID == user.Id).ToList();
+            
+            foreach(UserRequests ur in  userReqs)
+            {
+                requests.Add(ur.Request);
+            }
+
+            return View(requests);
         }
 
-        public IActionResult Requests()
+        public async Task<IActionResult> Notifications()
         {
-            return View();
-        }
+            ApplicationUser? user = await _userManager.GetUserAsync(User);
 
-        public IActionResult Notifications()
-        {
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
             return View();
         }
     }
