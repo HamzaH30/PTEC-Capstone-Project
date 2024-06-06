@@ -53,6 +53,10 @@ body {
   padding-bottom: 5rem;
 }
 
+main {
+  max-width: 1200px;
+}
+
 body.light-mode {
   background-color: whitesmoke;
   color: var(--colour-dark-gunmetal);
