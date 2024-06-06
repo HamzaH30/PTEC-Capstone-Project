@@ -81,7 +81,7 @@
                 <p>Rank:</p>
                 <p>Level Requirement:</p>
               </section>
-                @if (ViewBag.User != null)
+                @if (User.Identity.IsAuthenticated)
                 {
                     <section class="request-join-team-btn-container">
                         <form asp-controller="Request" asp-action="CreateRequest" method="post">

@@ -1,6 +1,9 @@
-﻿<header>
+﻿@using Microsoft.AspNetCore.Identity
+@using PTEC_Capstone_Project.Data
+
+<header>
   <div>
-    <img class="team-up-logo"   src="/images/Logo_for_project-removebg-preview.svg" />
+    <img class="team-up-logo" src="/images/Logo_for_project-removebg-preview.svg" />
   </div>
   <div class="hamburger-menu" id="menu-btn">
     <span class="top"></span>
@@ -12,22 +15,37 @@
   <nav>
     <section class="nav-bar">
       <a asp-controller="Home" asp-action="">View Posts</a>
-      <a asp-controller="Post" asp-action="Index">Create Post</a>
-      <a asp-controller="User" asp-action="Requests">Requests</a>
-      <a asp-controller="User" asp-action="Notifications">Notifications</a>
-      <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-      <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Post" asp-action="Index">Create Post</a>
+            <a asp-controller="User" asp-action="Requests">Requests</a>
+            <a asp-controller="User" asp-action="Notifications">Notifications</a>
+            <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
+
+            @if (User.IsInRole(Constants.SuperAdminRole))
+            {
+                <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
+            }
+        }
+
       <partial name="_LoginPartial" />
       </section>
   </nav>
 </header>
 <section class="mobile-menu" id="mobile-menu">
   <a asp-controller="Home" asp-action="">View Posts</a>
-  <a asp-controller="Post" asp-action="Index">Create Post</a>
-  <a asp-controller="User" asp-action="Requests">Requests</a>
-  <a asp-controller="User" asp-action="Notifications">Notifications</a>
-  <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-    <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
-  <partial name="_LoginPartial" />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-controller="Post" asp-action="Index">Create Post</a>
+        <a asp-controller="User" asp-action="Requests">Requests</a>
+        <a asp-controller="User" asp-action="Notifications">Notifications</a>
+        <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
+
+        @if (User.IsInRole(Constants.SuperAdminRole))
+        {
+            <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
+        }
+    }  
+    <partial name="_LoginPartial" />
 </section>
 <div id="overlay"></div>
