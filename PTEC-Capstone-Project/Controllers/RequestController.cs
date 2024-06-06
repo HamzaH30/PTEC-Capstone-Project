@@ -129,7 +129,7 @@ namespace PTEC_Capstone_Project.Controllers
                 ApplicationUser = userPost.ApplicationUser,
             };
 
-            _context.Notifications.Add(notif);
+            _context.UserNotifications.Add(userNotif);
             _context.SaveChanges();
         }
 
