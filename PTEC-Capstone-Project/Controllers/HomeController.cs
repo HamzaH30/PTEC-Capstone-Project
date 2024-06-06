@@ -30,7 +30,18 @@ namespace PTEC_Capstone_Project.Controllers
         {
             var viewModel = searchResults ?? await GetGamePostViewModelsAsync();
             viewModel = viewModel.OrderByDescending(vm => vm.TimePosted).ToList();
+            
+            if (IsUserLoggedIn())
+            {
+                ViewBag.User = await _userManager.GetUserAsync(User);
+            }
+
             return View(viewModel);
+        }
+
+        public bool IsUserLoggedIn()
+        {
+            return User.Identity.IsAuthenticated;
         }
 
         [HttpPost]
