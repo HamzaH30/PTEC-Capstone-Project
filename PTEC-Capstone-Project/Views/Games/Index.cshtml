@@ -1,15 +1,24 @@
-﻿@model IEnumerable<PTEC_Capstone_Project.Models.Game>
+﻿@model PTEC_Capstone_Project.Models.ViewModels.GamesViewModel
 
-<section class="favourite-games">
-    <h1>Favourite Games</h1>
-
-    <section class="games">
-        @foreach (var game in Model)
-        {
-            <section class="game">
-                <p>@game.Title</p>
-                <i class="fa-regular fa-star"></i>
-            </section>
-        }
-    </section>
+<section class="games">
+    @foreach (var game in Model.Games)
+    {
+        <section class="game">
+            <p>@game.Title</p>
+            @if (Model.FavoriteGameIds.Contains(game.Id))
+            {
+                <form asp-action="RemoveFromFavorites" method="post">
+                    <input type="hidden" name="gameId" value="@game.Id" />
+                    <button type="submit"><i class="fa-solid fa-star"></i></button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="AddToFavorites" method="post">
+                    <input type="hidden" name="gameId" value="@game.Id" />
+                    <button type="submit"><i class="fa-regular fa-star"></i></button>
+                </form>
+            }
+        </section>
+    }
 </section>

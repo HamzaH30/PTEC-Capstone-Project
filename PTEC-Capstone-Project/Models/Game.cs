@@ -18,5 +18,7 @@ namespace PTEC_Capstone_Project.Models
         public string? ImageFilePath {  get; set; }
 
         // Navigation Properties
+
+        public virtual ICollection<ApplicationUser> e {  get; set; } 
     }
 }

@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models.ViewModels;
 using PTEC_Capstone_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _context;
