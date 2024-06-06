@@ -101,30 +101,30 @@ namespace PTEC_Capstone_Project.Controllers
         public void CreateNotifAfterReq(int postID)
         {
             Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
-            
+
             // create or find notification type
 
         }
 
-        //public NotificationType CreateOrFindType(Types type)
-        //{
-        //    // does the status exist
-        //    RequestStatus? notifType = _context.NotificationTypes.Where(nt => nt.Name == type).FirstOrDefault();
+        public NotificationType CreateOrFindType(Types type)
+        {
+            // does the type exist
+            NotificationType? notifType = _context.NotificationTypes.Where(nt => nt.Name == type).FirstOrDefault();
 
-        //    // if not create status\
-        //    if (reqSts == null)
-        //    {
-        //        reqSts = new RequestStatus
-        //        {
-        //            Name = status
-        //        };
+            // if not create type
+            if (notifType == null)
+            {
+                notifType = new NotificationType
+                {
+                    Name = type
+                };
 
-        //        _context.RequestStatuses.Add(reqSts);
-        //        _context.SaveChanges();
-        //    }
+                _context.NotificationTypes.Add(notifType);
+                _context.SaveChanges();
+            }
 
-        //    // if it does return 
-        //    return reqSts;
-        //}
+            // if it does return 
+            return notifType;
+        }
     }
 }
