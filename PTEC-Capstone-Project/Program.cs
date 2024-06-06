@@ -26,13 +26,20 @@ namespace PTEC_Capstone_Project
 
             builder.Services.AddControllersWithViews();
 
+
             // Register the API service to use HttpClient via dependency injection
-            //builder.Services.AddHttpClient<GamesApiService>();
-            builder.Services.AddSingleton(new GamesApiService(new HttpClient(), "random_key"));
-            
-            /*
-             * Singleton vs Scoped DI
-             */
+            string? giantBombApiKey = builder.Configuration["GamesApiKey"]
+                                     ?? throw new InvalidOperationException("API key 'GamesApiKey' not found.");
+
+            // Register HttpClient
+            builder.Services.AddHttpClient();
+
+            // Register GamesApiService with DI and pass the API key
+            builder.Services.AddSingleton<GamesApiService>(sp =>
+            {
+                var httpClient = sp.GetRequiredService<HttpClient>();
+                return new GamesApiService(httpClient, giantBombApiKey);
+            });
 
             var app = builder.Build();
 
@@ -45,6 +52,8 @@ namespace PTEC_Capstone_Project
                 string? seedUserPassword = builder.Configuration["SeedUserPW"];
                 
                 SeedData.Initialize(services, seedUserPassword).Wait();
+
+
             }
 
             // Configure the HTTP request pipeline.
