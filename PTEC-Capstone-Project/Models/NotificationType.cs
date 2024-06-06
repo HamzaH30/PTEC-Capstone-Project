@@ -7,6 +7,13 @@ namespace PTEC_Capstone_Project.Models
         // Self Properties
         [Key] 
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
+    }
+
+    public enum Types
+    {
+        Pending = 0,
+        Accepted = 1,
+        Denied = 2
     }
 }
