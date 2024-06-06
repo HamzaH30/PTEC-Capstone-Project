@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
+using PTEC_Capstone_Project.Models.ViewModels;
 
 namespace PTEC_Capstone_Project.Controllers
 {
@@ -25,15 +27,27 @@ namespace PTEC_Capstone_Project.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
-            List<Request> requests = [];
-            List<UserRequests> userReqs = _context.UserRequests.Where(ur => ur.UserID == user.Id).ToList();
-            
-            foreach(UserRequests ur in  userReqs)
-            {
-                requests.Add(ur.Request);
-            }
+            List<UserRequests> userReqs = _context.UserRequests.Where(ur => ur.UserID == user.Id).Include(ur => ur.Request).Include(ur => ur.Request.RequestStatus).ToList();
+            List<SeeRequestsViewModel> reqVM = new List<SeeRequestsViewModel>();
 
-            return View(requests);
+
+            foreach (UserRequests ur in userReqs)
+            {
+                List<UserPost> posts = _context.UserPosts.Where(up => up.PostID == ur.Request.PostID).Include(up => up.ApplicationUser).ToList();
+                foreach (UserPost up in posts)
+                {
+                    SeeRequestsViewModel req = new SeeRequestsViewModel
+                    {
+                        UserName = up.ApplicationUser.UserName,
+                        Status = ur.Request.RequestStatus.Name.ToString()
+                    };
+
+                    reqVM.Add(req);
+                }
+                
+            }
+            
+            return View(reqVM);
         }
 
         public async Task<IActionResult> Notifications()
