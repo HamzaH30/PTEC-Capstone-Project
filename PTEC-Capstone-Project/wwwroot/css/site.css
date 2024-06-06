@@ -68,13 +68,21 @@ footer {
   padding: 1rem 1.5rem;
 }
 
+.container {
+  max-width: 1200px;
+}
+
 /* End of mobile default styles */
 /* Mobile nav bar */
-header {
+header .container {
   display: flex;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
+}
+
+header {
   margin-bottom: 2rem;
+  align-items: center;
 }
 
 nav {
@@ -636,9 +644,6 @@ footer {
   }
 }
 @media screen and (min-width: 1200px) {
-  .container {
-    max-width: 1075px;
-  }
 }
 
 @media screen and (min-width: 1800px) {
