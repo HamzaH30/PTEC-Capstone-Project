@@ -97,5 +97,13 @@ namespace PTEC_Capstone_Project.Controllers
             // if it does return 
             return reqSts;
         }
+
+        public void CreateNotifAfterReq(int postID)
+        {
+            Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
+            
+            // create or find notification type
+
+        }
     }
 }
