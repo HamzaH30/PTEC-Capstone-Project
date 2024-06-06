@@ -74,6 +74,8 @@ namespace PTEC_Capstone_Project.Controllers
             _context.UserRequests.Add(userReq);
             _context.SaveChanges();
 
+            CreateNotifAfterReq(postID);
+
             return View("RequestSuccess");
         }
 
@@ -101,6 +103,7 @@ namespace PTEC_Capstone_Project.Controllers
         public void CreateNotifAfterReq(int postID)
         {
             Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
+            UserPost userPost = _context.UserPosts.Where(up => up.PostID == postID).FirstOrDefault()!;
 
             // create or find notification type
             NotificationType notifType = CreateOrFindType(Types.Request);
@@ -118,8 +121,16 @@ namespace PTEC_Capstone_Project.Controllers
             _context.Notifications.Add(notif);
             _context.SaveChanges();
 
+            UserNotification userNotif = new UserNotification
+            {
+                NotificationID = notif.Id,
+                Notification = notif,
+                UserID = userPost.UserID,
+                ApplicationUser = userPost.ApplicationUser,
+            };
 
-
+            _context.Notifications.Add(notif);
+            _context.SaveChanges();
         }
 
         public NotificationType CreateOrFindType(Types type)
