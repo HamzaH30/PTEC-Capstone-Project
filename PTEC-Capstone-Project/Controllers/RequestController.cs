@@ -74,6 +74,8 @@ namespace PTEC_Capstone_Project.Controllers
             _context.UserRequests.Add(userReq);
             _context.SaveChanges();
 
+            CreateNotifAfterReq(postID);
+
             return View("RequestSuccess");
         }
 
@@ -96,6 +98,60 @@ namespace PTEC_Capstone_Project.Controllers
 
             // if it does return 
             return reqSts;
+        }
+
+        public void CreateNotifAfterReq(int postID)
+        {
+            Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
+            UserPost userPost = _context.UserPosts.Where(up => up.PostID == postID).FirstOrDefault()!;
+
+            // create or find notification type
+            NotificationType notifType = CreateOrFindType(Types.Request);
+
+            Notification notif = new Notification
+            {
+                IsRead = false,
+                Timestamp = DateTime.Now,
+                PostID = postID,
+                Post = post,
+                TypeID = notifType.Id,
+                NotificationType = notifType
+            };
+
+            _context.Notifications.Add(notif);
+            _context.SaveChanges();
+
+            UserNotification userNotif = new UserNotification
+            {
+                NotificationID = notif.Id,
+                Notification = notif,
+                UserID = userPost.UserID,
+                ApplicationUser = userPost.ApplicationUser,
+            };
+
+            _context.UserNotifications.Add(userNotif);
+            _context.SaveChanges();
+        }
+
+        public NotificationType CreateOrFindType(Types type)
+        {
+            // does the type exist
+            NotificationType? notifType = _context.NotificationTypes.Where(nt => nt.Name == type).FirstOrDefault();
+
+            // if not create type
+            if (notifType == null)
+            {
+                notifType = new NotificationType
+                {
+                    Name = type
+                };
+
+                _context.NotificationTypes.Add(notifType);
+                _context.SaveChanges();
+            }
+
+            // if it does return 
+            return notifType;
         }
     }
 }

@@ -7,6 +7,12 @@ namespace PTEC_Capstone_Project.Models
         // Self Properties
         [Key] 
         public int Id { get; set; }
-        public string Description { get; set; }
+        public Types Name { get; set; }
+    }
+
+    public enum Types
+    {
+        Request = 0,
+        System = 1,
     }
 }
