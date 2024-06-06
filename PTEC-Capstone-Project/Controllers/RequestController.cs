@@ -103,6 +103,22 @@ namespace PTEC_Capstone_Project.Controllers
             Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
 
             // create or find notification type
+            NotificationType notifType = CreateOrFindType(Types.Request);
+
+            Notification notif = new Notification
+            {
+                IsRead = false,
+                Timestamp = DateTime.Now,
+                PostID = postID,
+                Post = post,
+                TypeID = notifType.Id,
+                NotificationType = notifType
+            };
+
+            _context.Notifications.Add(notif);
+            _context.SaveChanges();
+
+
 
         }
 

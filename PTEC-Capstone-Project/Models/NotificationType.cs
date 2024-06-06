@@ -12,8 +12,7 @@ namespace PTEC_Capstone_Project.Models
 
     public enum Types
     {
-        Pending = 0,
-        Accepted = 1,
-        Denied = 2
+        Request = 0,
+        System = 1,
     }
 }
