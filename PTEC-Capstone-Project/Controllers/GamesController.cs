@@ -99,7 +99,7 @@ namespace PTEC_Capstone_Project.Controllers
                 FavoriteGameIds = new List<int>()
             };
 
-            return View("SearchResults", model);
+            return View("Index", model);
         }
     }
 }

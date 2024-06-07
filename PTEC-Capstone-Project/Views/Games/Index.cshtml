@@ -1,14 +1,13 @@
 ﻿@model PTEC_Capstone_Project.Models.ViewModels.GamesViewModel
 
-<form asp-action="Search" method="post">
-    <div class="form-group">
-        <label for="query">Game Name</label>
-        <input type="text" class="form-control" id="query" name="query" placeholder="Enter game name">
-    </div>
-    <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-magnifying-glass"></i></button>
-</form>
-
-
+<section>
+    <form asp-controller="Games" asp-action="Search" asp-method="post" class="search-box">
+        <input type="text" placeholder="Search" name="query" id="search-by-game" />
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+</section>
 <section class="games">
     @foreach (var game in Model.Games)
     {
