@@ -12,7 +12,7 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240607140158_UpdateConnectionString")]
+    [Migration("20240607143138_UpdateConnectionString")]
     partial class UpdateConnectionString
     {
         /// <inheritdoc />
