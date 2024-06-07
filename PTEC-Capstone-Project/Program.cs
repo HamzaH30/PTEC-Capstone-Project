@@ -37,6 +37,7 @@ namespace PTEC_Capstone_Project
                 context.Database.Migrate();
 
                 string? seedUserPassword = builder.Configuration["SeedUserPW"];
+                seedUserPassword = "asdASD123!";
                 SeedData.Initialize(services, seedUserPassword).Wait();
             }
 
