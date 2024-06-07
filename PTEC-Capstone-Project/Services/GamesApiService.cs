@@ -36,5 +36,18 @@ namespace PTEC_Capstone_Project.Services
             }
             return null;
         }
+
+        public async Task<GamesApiResponse> SearchGames(string query)
+        {
+            string searchEndpoint = $"https://www.giantbomb.com/api/search/?query={query}&resources=game&api_key={_apiKey}&format=json";
+            HttpResponseMessage response = await _httpClient.GetAsync(searchEndpoint);
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                GamesApiResponse apiResponse = JsonConvert.DeserializeObject<GamesApiResponse>(content);
+                return apiResponse;
+            }
+            return null;
+        }
     }
 }

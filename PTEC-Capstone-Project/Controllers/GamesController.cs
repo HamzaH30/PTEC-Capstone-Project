@@ -86,5 +86,20 @@ namespace PTEC_Capstone_Project.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string query)
+        {
+            var apiResponse = await _gamesApiService.SearchGames(query);
+            var games = apiResponse?.Results ?? new List<Game>();
+
+            var model = new GamesViewModel
+            {
+                Games = games,
+                FavoriteGameIds = new List<int>()
+            };
+
+            return View("SearchResults", model);
+        }
     }
 }
