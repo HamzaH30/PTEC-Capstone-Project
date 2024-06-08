@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
 
-namespace PTEC_Capstone_Project 
+namespace PTEC_Capstone_Project
 {
     public class Program
     {
@@ -13,15 +13,15 @@ namespace PTEC_Capstone_Project
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-            //                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            var connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")
-                       ?? throw new InvalidOperationException("Connection string 'AZURE_SQL_CONNECTIONSTRING' not found.");
+            var environment = builder.Environment;
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException($"Connection string 'DefaultConnection' not found for {environment.EnvironmentName} environment.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString, builder =>
+                options.UseSqlServer(connectionString, sqlOptions =>
                 {
-                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                 }));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,7 +40,6 @@ namespace PTEC_Capstone_Project
                 context.Database.Migrate();
 
                 string? seedUserPassword = builder.Configuration["SeedUserPW"];
-                seedUserPassword = "asdASD123!";
                 SeedData.Initialize(services, seedUserPassword).Wait();
             }
 
@@ -52,7 +51,6 @@ namespace PTEC_Capstone_Project
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
