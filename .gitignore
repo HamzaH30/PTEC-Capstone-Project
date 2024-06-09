@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#database information files made by Hamza
+database_info.json
+database_info.env.parameters.json
+
 # User-specific files
 *.rsuser
 *.suo
