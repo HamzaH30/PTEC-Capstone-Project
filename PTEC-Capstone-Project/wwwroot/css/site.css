@@ -53,6 +53,10 @@ body {
   padding-bottom: 5rem;
 }
 
+main {
+  max-width: 1200px;
+}
+
 body.light-mode {
   background-color: whitesmoke;
   color: var(--colour-dark-gunmetal);
@@ -64,13 +68,23 @@ footer {
   padding: 1rem 1.5rem;
 }
 
+.container {
+  max-width: 1200px;
+}
+
 /* End of mobile default styles */
 /* Mobile nav bar */
-header {
+header .container {
   display: flex;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
+  gap: 2rem;
+  max-width: 2400px;
+}
+
+header {
   margin-bottom: 2rem;
+  align-items: center;
 }
 
 nav {
@@ -177,8 +191,15 @@ header img {
   width: 100%;
   color: var(--colour-white);
   display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 2rem;
   justify-content: center;
+}
+
+.search-main {
+  width: 100%;
+  display: flex;
 }
 
 .search-box button,
@@ -190,7 +211,7 @@ header img {
 }
 
 .search-box input {
-  width: 80%;
+  width: 100%;
   border-radius: 50px 0 0 50px;
   padding: 5px;
 }
@@ -200,9 +221,56 @@ header img {
   width: 25px;
   color: var(--colour-white);
 }
-/* End of search button posts styles */
 
+.search-box button[type="submit"] {
+  background-color: var(--colour-orange);
+  width: 25px;
+  color: var(--colour-white);
+  border-radius: 0 50px 50px 0;
+}
+
+.advanced-search-button {
+  background-color: var(--colour-blue);
+  color: white;
+  padding: 2.5rem 4.5rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.advanced-search-fields {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.advanced-search-fields div {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.advanced-search-fields label {
+  margin-bottom: 0.5rem;
+}
+
+.advanced-search-fields input {
+  padding: 0.5rem;
+  border-radius: 50px;
+  width: 100%;
+  border: 1px solid var(--colour-orange);
+}
+
+/* End of search button posts styles */
 /* Posts page */
+
 .posts-container {
   margin-top: 2rem;
 }
@@ -224,6 +292,7 @@ header img {
 
   padding-bottom: 0.5rem;
   border-radius: 2rem;
+  width: 100%;
 }
 
 .light-mode .post {
@@ -386,19 +455,47 @@ footer {
   text-align: center;
 }
 
+.user {
+  color: var(--colour-white);
+  background-color: white;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  padding: 2px 7px;
+}
+
+.user p {
+  margin: 5px;
+  color: black;
+}
+.buttons {
+  display: flex;
+}
+
+.delete-button,
+.add-admin-button,
+.remove-admin-button,
+.remove-super-admin-button,
+.add-super-admin-button {
+  background-color: #fb2212;
+
+  color: var(--colour-white);
+  font-weight: bold;
+  border: none;
+  border-radius: 5rem;
+  padding: 3px;
+}
+
+.add-admin-button,
+.add-super-admin-button {
+  background-color: lime;
+}
+
 /* Tablet */
 
 @media screen and (min-width: 800px) {
-  .posts {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  .post {
-    max-width: 45%;
-  }
-
   h1 {
     font-size: 36px;
   }
@@ -425,7 +522,13 @@ footer {
     justify-content: center;
   }
 }
+
 @media screen and (min-width: 1000px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     font-size: 48px;
   }
@@ -442,61 +545,22 @@ footer {
     font-size: 16px;
   }
 
-  .mobile-menu {
-    display: none;
-  }
-
-  .hamburger-menu {
-    display: none;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-  }
-  .nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 1rem;
-  }
-  .nav-bar a {
-    color: #2f2235;
-    font-size: 22px;
-    text-decoration: none;
-  }
-
-  /* Search bar on posts page styles */
-
-  .search-box button,
-  .search-box input {
-    min-height: 28px;
-    height: 30px;
-    border: 1px solid var(--colour-orange);
-    outline: none;
-  }
-
-  .search-box input {
+  /* Search */
+  .search-section {
     width: 80%;
-    border-radius: 50px 0 0 50px;
-    padding: 15px;
+    justify-self: center;
+    align-self: center;
   }
 
-  .search-box button {
-    background-color: var(--colour-orange);
-    width: 30px;
-    height: 32px;
-    color: var(--colour-white);
-  }
-  /* End of search button posts styles */
-
+  /* End of Search*/
   /*Laptop posts*/
   .posts {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin: 2rem;
   }
+
   .post {
     background-color: var(--colour-white);
     color: black;
@@ -508,7 +572,6 @@ footer {
 
     padding-bottom: 0.5rem;
     border-radius: 2rem;
-    max-width: 100%;
   }
 
   .post > *,
@@ -539,10 +602,53 @@ footer {
     padding: 6px;
     margin: 10px;
   }
+
   .post p {
     font-size: 20px;
   }
+
   .svg-fill {
     font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-bar a {
+    color: #2f2235;
+    font-size: 22px;
+    text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .posts-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .post {
+    width: 100%;
   }
 }

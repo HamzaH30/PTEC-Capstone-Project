@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PTEC_Capstone_Project.Data;
 
@@ -11,9 +12,11 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240531150659_addingDbSets")]
+    partial class addingDbSets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +181,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -215,8 +215,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -269,6 +267,10 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
+                    b.Property<string>("RecieverID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
@@ -278,6 +280,8 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("RecieverID");
 
                     b.HasIndex("TypeID");
 
@@ -292,8 +296,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -336,8 +341,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PostID")
-                        .HasColumnType("int");
+                    b.Property<string>("SenderID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("StatusID")
                         .HasColumnType("int");
@@ -347,7 +353,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("SenderID");
 
                     b.HasIndex("StatusID");
 
@@ -362,8 +368,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -479,6 +486,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
                     b.Property<int>("RequestID")
                         .HasColumnType("int");
 
@@ -487,6 +497,8 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostID");
 
                     b.HasIndex("RequestID");
 
@@ -546,13 +558,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PTEC_Capstone_Project.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("PTEC_Capstone_Project.Models.Game", null)
-                        .WithMany("e")
-                        .HasForeignKey("GameId");
-                });
-
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Notification", b =>
                 {
                     b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
@@ -561,11 +566,19 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("RecieverID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PTEC_Capstone_Project.Models.NotificationType", "NotificationType")
                         .WithMany()
                         .HasForeignKey("TypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("NotificationType");
 
@@ -585,9 +598,9 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Request", b =>
                 {
-                    b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
+                    b.HasOne("PTEC_Capstone_Project.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("PostID")
+                        .HasForeignKey("SenderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -597,7 +610,7 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Post");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("RequestStatus");
                 });
@@ -668,6 +681,12 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.UserRequests", b =>
                 {
+                    b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PTEC_Capstone_Project.Models.Request", "Request")
                         .WithMany()
                         .HasForeignKey("RequestID")
@@ -682,6 +701,8 @@ namespace PTEC_Capstone_Project.Data.Migrations
 
                     b.Navigation("ApplicationUser");
 
+                    b.Navigation("Post");
+
                     b.Navigation("Request");
                 });
 
@@ -694,11 +715,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("UserPosts");
-                });
-
-            modelBuilder.Entity("PTEC_Capstone_Project.Models.Game", b =>
-                {
-                    b.Navigation("e");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Post", b =>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PTEC_Capstone_Project.Data;
 
@@ -11,9 +12,11 @@ using PTEC_Capstone_Project.Data;
 namespace PTEC_Capstone_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240607143138_UpdateConnectionString")]
+    partial class UpdateConnectionString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +181,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -215,8 +215,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -546,13 +544,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PTEC_Capstone_Project.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("PTEC_Capstone_Project.Models.Game", null)
-                        .WithMany("e")
-                        .HasForeignKey("GameId");
-                });
-
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Notification", b =>
                 {
                     b.HasOne("PTEC_Capstone_Project.Models.Post", "Post")
@@ -694,11 +685,6 @@ namespace PTEC_Capstone_Project.Data.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("UserPosts");
-                });
-
-            modelBuilder.Entity("PTEC_Capstone_Project.Models.Game", b =>
-                {
-                    b.Navigation("e");
                 });
 
             modelBuilder.Entity("PTEC_Capstone_Project.Models.Post", b =>

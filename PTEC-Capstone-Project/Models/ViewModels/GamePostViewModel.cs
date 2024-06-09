@@ -2,6 +2,7 @@
 {
     public class GamePostViewModel
     {
+        public int PostID { get; set; }
         public string GameName { get; set; }
         public string UserName {  get; set; }
         public DateTime TimePosted { get; set; }
