@@ -54,14 +54,58 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToFavorites(int gameId)
+        public async Task<IActionResult> AddToFavorites(string gameTitle, int? gameId)
         {
             var user = await _userManager.GetUserAsync(User);
 
+            // Check if the game with the given title exists in the database
+            Game existingGame = null;
+            if (!string.IsNullOrEmpty(gameTitle))
+            {
+                existingGame = _context.Games.FirstOrDefault(g => g.Title == gameTitle);
+            }
+
+            // If the game with the given title is not found, try searching by gameId
+            if (existingGame == null && gameId.HasValue)
+            {
+                existingGame = await _context.Games.FindAsync(gameId.Value);
+            }
+
+            if (existingGame == null)
+            {
+                // Fetch the game details from the API based on the title or ID
+                if (!string.IsNullOrEmpty(gameTitle))
+                {
+                    var apiResponse = await _gamesApiService.SearchGames(gameTitle);
+                    existingGame = apiResponse?.Results.FirstOrDefault();
+                }
+                else if (gameId.HasValue)
+                {
+                    var apiResponse = await _gamesApiService.GetGameById(gameId.Value);
+                    existingGame = apiResponse?.Results;
+                }
+
+                if (existingGame != null && !string.IsNullOrEmpty(existingGame.Title))
+                {
+                    // Ensure the game ID is not set, so the database can generate it
+                    existingGame.Id = 0;
+
+                    // Save the fetched game to the database
+                    _context.Games.Add(existingGame);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    // Handle the case where the game is not found in the API
+                    return NotFound();
+                }
+            }
+
+            // Add the game to the user's favorites
             var userGame = new UserGame
             {
                 UserID = user.Id,
-                GameID = gameId
+                GameID = existingGame.Id
             };
 
             _context.UserGames.Add(userGame);
@@ -84,7 +128,7 @@ namespace PTEC_Capstone_Project.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

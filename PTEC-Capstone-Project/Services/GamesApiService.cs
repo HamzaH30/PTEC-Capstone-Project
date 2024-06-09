@@ -37,6 +37,32 @@ namespace PTEC_Capstone_Project.Services
             return null;
         }
 
+        public async Task<GameApiResponse> GetGameById(int gameId)
+        {
+            string requestUrl = $"https://www.giantbomb.com/api/game/{gameId}/?api_key={_apiKey}&format=json";
+
+            // Send a GET request to the API
+            HttpResponseMessage response = await _httpClient.GetAsync(requestUrl);
+
+            // Check if the response is successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Read the response content
+                string content = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON content into a collection of games
+                GameApiResponse apiResponse = JsonConvert.DeserializeObject<GameApiResponse>(content);
+
+                return apiResponse;
+            }
+            else
+            {
+                // Handle the case where the API request fails
+                // For example, you can throw an exception or return null
+                return null;
+            }
+        }
+
         public async Task<GamesApiResponse> SearchGames(string query)
         {
             string searchEndpoint = $"https://www.giantbomb.com/api/search/?query={query}&resources=game&api_key={_apiKey}&format=json";
