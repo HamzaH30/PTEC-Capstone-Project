@@ -14,7 +14,7 @@ namespace PTEC_Capstone_Project.Services
             _httpClient = client;
             _apiKey = apiKey;
 
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; GameApp/1.0; +https://ptec-capstone-project.azurewebsites.net/)");
         }
 
         public async Task<GamesApiResponse> GetApiResponse(string url)
