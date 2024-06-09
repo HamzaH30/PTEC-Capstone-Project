@@ -1,11 +1,13 @@
 ﻿@model PTEC_Capstone_Project.Models.ViewModels.GamesViewModel
 
-<section>
+<section class="search-section">
     <form asp-controller="Games" asp-action="Search" asp-method="post" class="search-box">
+        <div class="search-main">
         <input type="text" placeholder="Search" name="query" id="search-by-game" />
         <button type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
+        </div>
     </form>
 </section>
 <section class="games">

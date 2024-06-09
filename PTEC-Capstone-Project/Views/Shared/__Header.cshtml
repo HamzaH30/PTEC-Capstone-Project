@@ -1,29 +1,49 @@
-﻿<header>
-  <div>
-    <img class="team-up-logo"   src="/images/Logo_for_project-removebg-preview.svg" />
-  </div>
-  <div class="hamburger-menu" id="menu-btn">
-    <span class="top"></span>
-    <span class="middle"></span>
-    <span class="bottom"></span>
-  </div>
+﻿﻿@using Microsoft.AspNetCore.Identity @using PTEC_Capstone_Project.Data
 
-  <!-- This is the nav bar displayed on tablets & desktop. -->
-  <nav>
-    <section class="nav-bar">
-      <a asp-controller="Home" asp-action="">View Posts</a>
-      <a asp-controller="Post" asp-action="Index">Create Post</a>
-      <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-      <partial name="_LoginPartial" />
+<header>
+  <div class="container">
+    <div>
+      <img
+        class="team-up-logo"
+        src="/images/Logo_for_project-removebg-preview.svg"
+      />
+    </div>
+    <div class="hamburger-menu" id="menu-btn">
+      <span class="top"></span>
+      <span class="middle"></span>
+      <span class="bottom"></span>
+    </div>
+
+    <!-- This is the nav bar displayed on tablets & desktop. -->
+    <nav>
+      <section class="nav-bar">
+        <a asp-controller="Home" asp-action="">View Posts</a>
+        @if (User.Identity.IsAuthenticated) {
+        <a asp-controller="Post" asp-action="Index">Create Post</a>
+        <a asp-controller="User" asp-action="Requests">Requests</a>
+        <a asp-controller="User" asp-action="Notifications">Notifications</a>
+        <a asp-controller="Games" asp-action="Index">Favourite Games</a>
+
+        @if (User.IsInRole(Constants.SuperAdminRole)) {
+        <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
+        } }
+
+        <partial name="_LoginPartial" />
       </section>
-  </nav>
+    </nav>
+  </div>
 </header>
 <section class="mobile-menu" id="mobile-menu">
   <a asp-controller="Home" asp-action="">View Posts</a>
-  <a asp-controller="Home" asp-action="CreatePost">Create Post</a>
-  <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
-    <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a> 
+  @if (User.Identity.IsAuthenticated) {
+  <a asp-controller="Post" asp-action="Index">Create Post</a>
+  <a asp-controller="User" asp-action="Requests">Requests</a>
+  <a asp-controller="User" asp-action="Notifications">Notifications</a>
+  <a asp-controller="Games" asp-action="Index">Favourite Games</a>
+
+  @if (User.IsInRole(Constants.SuperAdminRole)) {
+  <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
+  } }
   <partial name="_LoginPartial" />
-    <partial name="_LoginPartial" />
 </section>
 <div id="overlay"></div>
