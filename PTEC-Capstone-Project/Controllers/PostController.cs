@@ -24,7 +24,18 @@ namespace PTEC_Capstone_Project.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-            ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
+            var user = await _userManager.GetUserAsync(User); 
+
+            var favoriteGameIds = _context.UserGames
+                .Where(ug => ug.UserID == user.Id)
+                .Select(ug => ug.GameID)
+                .ToList();
+
+            var favoriteGames = await _context.Games
+                .Where(g => favoriteGameIds.Contains(g.Id))
+                .ToListAsync();
+
+            ViewBag.Games = new SelectList(favoriteGames, "Id", "Title");
             return View();
         }
 
