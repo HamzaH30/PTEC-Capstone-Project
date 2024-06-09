@@ -45,11 +45,16 @@ namespace PTEC_Capstone_Project
                 // Apply pending migrations to the database
                 context.Database.Migrate();
 
+                string? seedUserPassword = builder.Configuration["SeedUserPW"];
+
                 // Seed the database with initial data only in the Development environment
                 if (app.Environment.IsDevelopment())
                 {
-                    string? seedUserPassword = builder.Configuration["SeedUserPW"];
                     SeedData.Initialize(services, seedUserPassword).Wait();
+                } else
+                {
+                    // Regardless, we still want to seed a super admin user
+                    SeedData.SeedSuperAdminUser(services, seedUserPassword).Wait();
                 }
             }
 
