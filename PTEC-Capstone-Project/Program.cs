@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
 using System;
+using PTEC_Capstone_Project.Services;
 
 namespace PTEC_Capstone_Project
 {
@@ -35,6 +36,21 @@ namespace PTEC_Capstone_Project
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+
+            // Register the API service to use HttpClient via dependency injection
+            string? giantBombApiKey = builder.Configuration["GamesApiKey"]
+                                     ?? throw new InvalidOperationException("API key 'GamesApiKey' not found.");
+
+            // Register HttpClient
+            builder.Services.AddHttpClient();
+
+            // Register GamesApiService with DI and pass the API key
+            builder.Services.AddSingleton<GamesApiService>(sp =>
+            {
+                var httpClient = sp.GetRequiredService<HttpClient>();
+                return new GamesApiService(httpClient, giantBombApiKey);
+            });
 
             var app = builder.Build();
 

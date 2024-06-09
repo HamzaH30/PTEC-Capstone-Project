@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity @using PTEC_Capstone_Project.Data
+﻿﻿@using Microsoft.AspNetCore.Identity @using PTEC_Capstone_Project.Data
 
 <header>
   <div class="container">
@@ -22,7 +22,7 @@
         <a asp-controller="Post" asp-action="Index">Create Post</a>
         <a asp-controller="User" asp-action="Requests">Requests</a>
         <a asp-controller="User" asp-action="Notifications">Notifications</a>
-        <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
+        <a asp-controller="Games" asp-action="Index">Favourite Games</a>
 
         @if (User.IsInRole(Constants.SuperAdminRole)) {
         <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>
@@ -39,7 +39,7 @@
   <a asp-controller="Post" asp-action="Index">Create Post</a>
   <a asp-controller="User" asp-action="Requests">Requests</a>
   <a asp-controller="User" asp-action="Notifications">Notifications</a>
-  <a asp-controller="Home" asp-action="FavouriteGames">Favourite Games</a>
+  <a asp-controller="Games" asp-action="Index">Favourite Games</a>
 
   @if (User.IsInRole(Constants.SuperAdminRole)) {
   <a asp-controller="SuperAdmin" asp-action="Index">User Manager</a>

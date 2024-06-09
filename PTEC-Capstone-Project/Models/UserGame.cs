@@ -10,7 +10,9 @@ namespace PTEC_Capstone_Project.Models
         public int Id { get; set; }
 
         // Foreign Key Properties
+        [Required]
         public string UserID { get; set; }
+        [Required]
         public int GameID { get; set; }
 
         // Navigation properties
