@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
+using System;
 
 namespace PTEC_Capstone_Project
 {
@@ -41,17 +43,32 @@ namespace PTEC_Capstone_Project
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
+                var logger = services.GetRequiredService<ILogger<Program>>();
 
-                // Apply pending migrations to the database
-                context.Database.Migrate();
-
-
-                // Seed the database with initial data only in the Development environment
-                if (app.Environment.IsDevelopment())
+                try
                 {
+                    // Apply pending migrations to the database
+                    context.Database.Migrate();
+
                     string? seedUserPassword = builder.Configuration["SeedUserPW"];
-                    SeedData.Initialize(services, seedUserPassword).Wait();
-                } 
+
+                    // Seed the database with initial data only in the Development environment
+                    if (app.Environment.IsDevelopment())
+                    {
+                        SeedData.Initialize(services, seedUserPassword).Wait();
+                    }
+                    else
+                    {
+                        // Regardless, we still want to seed a super admin user
+                        SeedData.SeedSuperAdminUser(services, seedUserPassword).Wait();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                    throw; // Re-throw the exception to ensure the application fails to start if seeding fails
+                }
             }
 
             // Configure the HTTP request pipeline
