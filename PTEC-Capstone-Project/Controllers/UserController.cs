@@ -42,6 +42,8 @@ namespace PTEC_Capstone_Project.Controllers
                         Status = ur.Request.RequestStatus.Name.ToString()
                     };
 
+                    
+
                     reqVM.Add(req);
                 }
                 
@@ -59,7 +61,32 @@ namespace PTEC_Capstone_Project.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
-            return View();
+            List<UserNotification> userNotifs = _context.UserNotifications.Where(ur => ur.UserID == user.Id).Include(ur => ur.Notification).Include(ur => ur.Notification.NotificationType).ToList();
+            List<SeeNotifViewModel> notifVM = new List<SeeNotifViewModel>();
+
+            foreach (UserNotification un in userNotifs)
+            {
+                List<UserRequests> reqs = _context.UserRequests.Where(ur => ur.Request.PostID == un.Notification.PostID).Include(ur => ur.ApplicationUser).ToList();
+                foreach (UserRequests ur in reqs)
+                {
+                    SeeNotifViewModel notif = new SeeNotifViewModel
+                    {
+                        postID = ur.Request.PostID,
+                        recieverID = un.UserID,
+                        senderID = ur.ApplicationUser.Id,
+                        userName = ur.ApplicationUser.UserName,
+                        type = un.Notification.NotificationType.Name.ToString(),
+                        timstamp = un.Notification.Timestamp,
+                        isRead = false,
+                    };
+
+
+
+                    notifVM.Add(notif);
+                }
+            }
+
+            return View(notifVM);
         }
     }
 }
