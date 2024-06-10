@@ -309,6 +309,13 @@ header img {
   justify-content: end;
 }
 
+.post-requests {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 .request-btn {
     background-color: var(--colour-orange);
     color: var(--colour-white);
