@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PTEC_Capstone_Project.Data;
 using PTEC_Capstone_Project.Models;
 using PTEC_Capstone_Project.Models.ViewModels;
+using System.Diagnostics;
 
 namespace PTEC_Capstone_Project.Controllers
 {
@@ -66,7 +67,7 @@ namespace PTEC_Capstone_Project.Controllers
 
             foreach (UserNotification un in userNotifs)
             {
-                List<UserRequests> reqs = _context.UserRequests.Where(ur => ur.Request.PostID == un.Notification.PostID).Include(ur => ur.ApplicationUser).ToList();
+                List<UserRequests> reqs = _context.UserRequests.Where(ur => ur.Request.PostID == un.Notification.PostID).Include(ur => ur.ApplicationUser).Include(ur => ur.Request).ToList();
                 foreach (UserRequests ur in reqs)
                 {
                     SeeNotifViewModel notif = new SeeNotifViewModel
@@ -77,7 +78,7 @@ namespace PTEC_Capstone_Project.Controllers
                         userName = ur.ApplicationUser.UserName,
                         type = un.Notification.NotificationType.Name.ToString(),
                         timstamp = un.Notification.Timestamp,
-                        isRead = false,
+                        isRead = "Unread"
                     };
 
 

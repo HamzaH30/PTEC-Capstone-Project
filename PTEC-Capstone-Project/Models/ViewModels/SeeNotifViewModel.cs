@@ -8,6 +8,6 @@
         public string userName { get; set; }
         public string type { get; set; }
         public DateTime timstamp { get; set; }
-        public bool isRead { get; set; }
+        public string isRead { get; set; }
     }
 }

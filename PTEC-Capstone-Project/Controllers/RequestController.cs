@@ -155,5 +155,7 @@ namespace PTEC_Capstone_Project.Controllers
             // if it does return 
             return notifType;
         }
+
+
     }
 }
