@@ -1,46 +1,47 @@
 ﻿@using PTEC_Capstone_Project.Models.ViewModels;
 @model List<SeeNotifViewModel>
 
-<section class="posts-container">
-    <h1>Post Requests</h1>
+<section class="notif-container">
 
-    <section class="post-requests">
-        @foreach (SeeNotifViewModel vm in Model)
-        {
-            <section class="post">
-                <section class="post-heading">
-                    <section class="post-info">
-                        <i class="fa-regular fa-user svg-fill"></i>
-                        <p>@vm.userName</p>
+    <section class="posts-container">
+        <h1>Post Requests</h1>
+
+        <section class="post-requests">
+            @foreach (SeeNotifViewModel vm in Model)
+            {
+                <section class="post">
+                    <section class="post-heading">
+                        <section class="post-info">
+                            <i class="fa-regular fa-user svg-fill"></i>
+                            <p>@vm.userName</p>
+                        </section>
+                        <section class="post-info">
+                            <i class="fa-regular fa-clock svg-fill"></i>
+                            <p>@vm.timstamp.ToString("mm':'ss")</p>
+                        </section>
+                        <section class="post-info">
+                            <i class="fa-regular fa-clock svg-fill"></i>
+                            <p>@vm.type</p>
+                        </section>
                     </section>
-                    <section class="post-info">
-                        <i class="fa-regular fa-clock svg-fill"></i>
-                        <p>@vm.timstamp.ToString("mm':'ss")</p>
+                    <section class="post-description">
+                        <p>this was the request you made</p>
                     </section>
-                    <section class="post-info">
-                        <i class="fa-regular fa-clock svg-fill"></i>
-                        <p>@vm.type</p>
+                    <section class="request-join-team-btn-container">
+                        <p class="is-read-text">@vm.isRead</p>
+                        <form asp-controller="User" asp-action="AcceptToGroup" method="post">
+                            <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                            <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                            <button type="submit" class="request-btn">Accept</button>
+                        </form>
+                        <form asp-controller="User" asp-action="RejectFromGroup" method="post">
+                            <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                            <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                            <button type="submit" class="request-btn">Deny</button>
+                        </form>
                     </section>
                 </section>
-                <section class="post-description">
-                    <p>this was the request you made</p>
-                </section>
-                <section class="request-join-team-btn-container">
-                    <p class="is-read-text">@vm.isRead</p>
-                    <form asp-controller="Request" asp-action="AcceptToGroup" method="post">
-                        <input type="hidden" name="postID" value="@vm.postID" id="@vm.postID" />
-                        <input type="hidden" name="recieverID" value="@vm.recieverID" id="@vm.recieverID" />
-                        <input type="hidden" name="senderID" value="@vm.senderID" id="@vm.senderID" />
-                        <button type="submit" class="request-btn">Accept</button>
-                    </form>
-                    <form asp-controller="Request" asp-action="RejectFromGroup" method="post">
-                        <input type="hidden" name="postID" value="@vm.postID" id="@vm.postID" />
-                        <input type="hidden" name="recieverID" value="@vm.recieverID" id="@vm.recieverID" />
-                        <input type="hidden" name="senderID" value="@vm.senderID" id="@vm.senderID" />
-                        <button type="submit" class="request-btn">Deny</button>
-                    </form>
-                </section>
-            </section>
-        }
+            }
+        </section>
     </section>
 </section>

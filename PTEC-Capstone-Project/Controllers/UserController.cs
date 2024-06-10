@@ -71,15 +71,29 @@ namespace PTEC_Capstone_Project.Controllers
                 List<UserRequests> reqs = _context.UserRequests.Where(ur => ur.Request.PostID == un.Notification.PostID).Include(ur => ur.ApplicationUser).Include(ur => ur.Request).ToList();
                 foreach (UserRequests ur in reqs)
                 {
+                    string read = "";
+
+                    if (un.Notification.IsRead == true)
+                    {
+                        read = "Read";
+                    }
+                    else 
+                    {
+                        read = "Unread";
+                    }
+
+
                     SeeNotifViewModel notif = new SeeNotifViewModel
                     {
                         postID = ur.Request.PostID,
                         recieverID = un.UserID,
                         senderID = ur.ApplicationUser.Id,
+                        notifID = un.NotificationID,
+                        reqID = ur.RequestID,
                         userName = ur.ApplicationUser.UserName,
                         type = un.Notification.NotificationType.Name.ToString(),
                         timstamp = un.Notification.Timestamp,
-                        isRead = "Unread"
+                        isRead = read
                     };
 
 
@@ -89,6 +103,72 @@ namespace PTEC_Capstone_Project.Controllers
             }
 
             return View(notifVM);
+        }
+
+        public async Task<IActionResult> AcceptToGroup(int reqID, int notifID)
+        {
+            Request request = await _context.Requests.Include(r => r.RequestStatus).FirstOrDefaultAsync(r => r.Id == reqID);
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            RequestStatus reqsts = CreateOrFindStatus(Statuses.Accepted);
+            request.StatusID = reqsts.Id;
+            request.RequestStatus = reqsts;
+            _context.Requests.Update(request);
+            await _context.SaveChangesAsync();
+
+
+            return View("Notifications");
+        }
+
+
+        public async Task<IActionResult> RejectFromGroup(int reqID, int notifID)
+        {
+            Request request = await _context.Requests.Include(r => r.RequestStatus).FirstOrDefaultAsync(r => r.Id == reqID);
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            Notification notif = _context.Notifications.Where(n => n.Id == notifID).FirstOrDefault();   
+            if (notif == null)
+            {
+                return NotFound();
+            }
+
+            RequestStatus reqsts = CreateOrFindStatus(Statuses.Denied);
+            request.StatusID = reqsts.Id;
+            request.RequestStatus = reqsts;
+            notif.IsRead = true;
+            _context.Requests.Update(request);
+            _context.Notifications.Update(notif);
+            await _context.SaveChangesAsync();
+
+
+            return View("Notifications");
+        }
+
+        public RequestStatus CreateOrFindStatus(Statuses status)
+        {
+            // does the status exist
+            RequestStatus? reqSts = _context.RequestStatuses.Where(rs => rs.Name == status).FirstOrDefault();
+
+            // if not create status\
+            if (reqSts == null)
+            {
+                reqSts = new RequestStatus
+                {
+                    Name = status
+                };
+
+                _context.RequestStatuses.Add(reqSts);
+                _context.SaveChanges();
+            }
+
+            // if it does return 
+            return reqSts;
         }
     }
 }
