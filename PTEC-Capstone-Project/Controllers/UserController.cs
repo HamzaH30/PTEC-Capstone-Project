@@ -113,14 +113,23 @@ namespace PTEC_Capstone_Project.Controllers
                 return NotFound();
             }
 
+            Notification notif = _context.Notifications.Where(n => n.Id == notifID).FirstOrDefault();
+            if (notif == null)
+            {
+                return NotFound();
+            }
+
+
             RequestStatus reqsts = CreateOrFindStatus(Statuses.Accepted);
             request.StatusID = reqsts.Id;
             request.RequestStatus = reqsts;
+            notif.IsRead = true;
             _context.Requests.Update(request);
+            _context.Notifications.Update(notif);
             await _context.SaveChangesAsync();
 
 
-            return View("Notifications");
+            return View("Sucess");
         }
 
 
@@ -147,7 +156,7 @@ namespace PTEC_Capstone_Project.Controllers
             await _context.SaveChangesAsync();
 
 
-            return View("Notifications");
+            return View("Sucess");
         }
 
         public RequestStatus CreateOrFindStatus(Statuses status)

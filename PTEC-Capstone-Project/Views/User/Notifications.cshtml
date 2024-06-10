@@ -29,16 +29,19 @@
                     </section>
                     <section class="request-join-team-btn-container">
                         <p class="is-read-text">@vm.isRead</p>
-                        <form asp-controller="User" asp-action="AcceptToGroup" method="post">
-                            <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
-                            <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
-                            <button type="submit" class="request-btn">Accept</button>
-                        </form>
-                        <form asp-controller="User" asp-action="RejectFromGroup" method="post">
-                            <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
-                            <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
-                            <button type="submit" class="request-btn">Deny</button>
-                        </form>
+                        @if (vm.isRead == "Unread")
+                        {
+                            <form asp-controller="User" asp-action="AcceptToGroup" method="post">
+                                <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                                <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                                <button type="submit" class="request-btn">Accept</button>
+                            </form>
+                            <form asp-controller="User" asp-action="RejectFromGroup" method="post">
+                                <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                                <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                                <button type="submit" class="request-btn">Deny</button>
+                            </form>
+                        }
                     </section>
                 </section>
             }
