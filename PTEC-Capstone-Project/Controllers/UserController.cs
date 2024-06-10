@@ -40,7 +40,8 @@ namespace PTEC_Capstone_Project.Controllers
                     SeeRequestsViewModel req = new SeeRequestsViewModel
                     {
                         UserName = up.ApplicationUser.UserName,
-                        Status = ur.Request.RequestStatus.Name.ToString()
+                        Status = ur.Request.RequestStatus.Name.ToString(),
+                        Timestamp = ur.Request.Timestamp
                     };
 
                     
