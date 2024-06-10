@@ -481,9 +481,12 @@ footer {
 }
 
 .add-admin-button,
-.add-super-admin-button {
+.add-super-admin-button ,
+.remove-admin-button,
+.remove-super-admin-button {
     background-color: lime;
 }
+
 
 /* Tablet */
 
