@@ -1,21 +1,50 @@
-﻿<section class="posts-container">
-    <h1>Notifications</h1>
+@using PTEC_Capstone_Project.Models.ViewModels;
+@model List<SeeNotifViewModel>
 
-    <section class="post-notifications">
-        <section class="post">
-            <section class="post-heading">
-                <section class="post-info">
-                    <i class="fa-regular fa-user svg-fill"></i>
-                    <p>UserName</p>
+<h1>Post Notifications</h1>
+<section class="notif-container">
+
+    <section class="posts-container">
+
+        <section class="post-requests">
+            @foreach (SeeNotifViewModel vm in Model)
+            {
+                <section class="post">
+                    <section class="post-heading">
+                        <section class="post-info">
+                            <i class="fa-regular fa-user svg-fill"></i>
+                            <p>@vm.userName</p>
+                        </section>
+                        <section class="post-info">
+                            <i class="fa-regular fa-clock svg-fill"></i>
+                            <p>@vm.timstamp.ToString("mm':'ss")</p>
+                        </section>
+                        <section class="post-info">
+                            <i class="fa-regular fa-clock svg-fill"></i>
+                            <p>@vm.type</p>
+                        </section>
+                    </section>
+                    <section class="post-description">
+                        <p>@vm.userName has requested to join your group</p>
+                    </section>
+                    <section class="request-join-team-btn-container">
+                        <p class="is-read-text">@vm.isRead</p>
+                        @if (vm.isRead == "Unread")
+                        {
+                            <form asp-controller="User" asp-action="AcceptToGroup" method="post">
+                                <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                                <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                                <button type="submit" class="request-btn">Accept</button>
+                            </form>
+                            <form asp-controller="User" asp-action="RejectFromGroup" method="post">
+                                <input type="hidden" name="reqID" value="@vm.reqID" id="@vm.reqID" />
+                                <input type="hidden" name="notifID" value="@vm.notifID" id="@vm.notifID" />
+                                <button type="submit" class="request-btn">Deny</button>
+                            </form>
+                        }
+                    </section>
                 </section>
-            </section>
-            <section class="post-description">
-                <p>Would you like to accept this user to your group?</p>
-            </section>
-            <section class="request-join-team-btn-container">
-                <button type="submit" class="request-accept-btn">Acecpt Request</button>
-                <button type="submit" class="request-deny-btn">Deny Request</button>
-            </section>
+            }
         </section>
     </section>
 </section>

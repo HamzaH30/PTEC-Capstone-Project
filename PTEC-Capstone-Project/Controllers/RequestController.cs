@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -50,7 +51,7 @@ namespace PTEC_Capstone_Project.Controllers
             RequestStatus reqSts = CreateOrFindStatus(Statuses.Pending);
 
             // create request model
-            Request req = new Request
+            Models.Request req = new Models.Request
             {
                 Timestamp = DateTime.Now,
                 PostID = postID,
@@ -155,5 +156,22 @@ namespace PTEC_Capstone_Project.Controllers
             // if it does return 
             return notifType;
         }
+
+        //public Notification SendAcceptOrDenyNotif(int postID)
+        //{
+        //    Post post = _context.Posts.Where(p => p.Id == postID).FirstOrDefault()!;
+        //    NotificationType notifType = CreateOrFindType(Types.System);
+        //    Notification notif = new Notification
+        //    {
+        //        IsRead = false,
+        //        Timestamp = DateTime.Now,
+        //        PostID = postID,
+        //        Post = post,
+        //        TypeID = notifType.Id,
+        //        NotificationType = notifType
+        //    };
+
+        //    return notif;
+        //}
     }
 }

@@ -316,6 +316,13 @@ header img {
     justify-content: end;
 }
 
+.post-requests {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 .request-btn {
     background-color: var(--colour-orange);
     color: var(--colour-white);
@@ -479,10 +486,13 @@ footer {
     padding: 3px;
 }
 
+.add-admin-button,
+.add-super-admin-button ,
 .remove-admin-button,
 .remove-super-admin-button {
     background-color: lime;
 }
+
 
 /* Tablet */
 
