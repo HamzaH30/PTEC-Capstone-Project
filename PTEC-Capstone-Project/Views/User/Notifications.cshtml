@@ -1,7 +1,7 @@
 ﻿@using PTEC_Capstone_Project.Models.ViewModels;
 @model List<SeeNotifViewModel>
 
-<h1>Post Requests</h1>
+<h1>Post Notifications</h1>
 <section class="notif-container">
 
     <section class="posts-container">
@@ -25,7 +25,7 @@
                         </section>
                     </section>
                     <section class="post-description">
-                        <p>this was the request you made</p>
+                        <p>@vm.userName has requested to join your group</p>
                     </section>
                     <section class="request-join-team-btn-container">
                         <p class="is-read-text">@vm.isRead</p>
