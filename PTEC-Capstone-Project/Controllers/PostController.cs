@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PTEC_Capstone_Project.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,9 +22,21 @@ namespace PTEC_Capstone_Project.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            ViewBag.Games = new SelectList(await _context.Games.ToListAsync(), "Id", "Title");
+            var user = await _userManager.GetUserAsync(User); 
+
+            var favoriteGameIds = _context.UserGames
+                .Where(ug => ug.UserID == user.Id)
+                .Select(ug => ug.GameID)
+                .ToList();
+
+            var favoriteGames = await _context.Games
+                .Where(g => favoriteGameIds.Contains(g.Id))
+                .ToListAsync();
+
+            ViewBag.Games = new SelectList(favoriteGames, "Id", "Title");
             return View();
         }
 
@@ -68,7 +81,6 @@ namespace PTEC_Capstone_Project.Controllers
             return View("Index", model);
         }
 
-        [Authorize]
         public IActionResult PostRequests()
         {
             return View();

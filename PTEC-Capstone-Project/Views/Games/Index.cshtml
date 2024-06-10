@@ -1,0 +1,34 @@
+﻿@model PTEC_Capstone_Project.Models.ViewModels.GamesViewModel
+
+<section class="search-section">
+    <form asp-controller="Games" asp-action="Search" asp-method="post" class="search-box">
+        <div class="search-main">
+        <input type="text" placeholder="Search" name="query" id="search-by-game" />
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        </div>
+    </form>
+</section>
+<section class="games">
+    @foreach (var game in Model.Games)
+    {
+        <section class="game">
+            <p>@game.Title</p>
+            @if (Model.FavoriteGameIds.Contains(game.Id))
+            {
+                <form asp-action="RemoveFromFavorites" method="post">
+                    <input type="hidden" name="gameId" value="@game.Id" />
+                    <button type="submit"><i class="fa-solid fa-star"></i></button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="AddToFavorites" method="post">
+                    <input type="hidden" name="gameId" value="@game.Id" />
+                    <button type="submit"><i class="fa-regular fa-star"></i></button>
+                </form>
+            }
+        </section>
+    }
+</section>
