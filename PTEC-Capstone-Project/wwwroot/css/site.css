@@ -310,11 +310,11 @@ header img {
 }
 
 .request-btn {
-  background-color: var(--colour-orange);
-  color: var(--colour-white);
-  font-weight: bold;
-  border: none;
-  border-radius: 5rem;
+    background-color: var(--colour-orange);
+    color: var(--colour-white);
+    font-weight: bold;
+    border: none;
+    border-radius: 5rem;
 }
 /* End of Posts page */
 
@@ -475,7 +475,7 @@ footer {
 
 .add-admin-button,
 .add-super-admin-button {
-  background-color: lime;
+    background-color: lime;
 }
 
 /* Tablet */

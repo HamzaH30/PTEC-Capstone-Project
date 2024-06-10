@@ -1,31 +1,34 @@
 ﻿@using PTEC_Capstone_Project.Models.ViewModels;
 @model List<SeeRequestsViewModel>
 
-<section class="posts-container">
-    <h1>Post Requests</h1>
+<h1>Post Requests</h1>
+<section class="requests-container">
+
+    <section class="posts-container">
     
-    <section class="post-requests">
-            @foreach (SeeRequestsViewModel vm in Model)
-            {
-                <section class="post">
-                    <section class="post-heading">
-                        <section class="post-info">
-                            <i class="fa-regular fa-user svg-fill"></i>
-                            <p>@vm.UserName</p>
+        <section class="post-requests">
+                @foreach (SeeRequestsViewModel vm in Model)
+                {
+                    <section class="post">
+                        <section class="post-heading">
+                            <section class="post-info">
+                                <i class="fa-regular fa-user svg-fill"></i>
+                                <p>@vm.UserName</p>
+                            </section>
+                            <section class="post-info">
+                                <i class="fa-regular fa-clock svg-fill"></i>
+                                <p>@vm.Timestamp.ToString("mm':'ss")</p>
+                            </section>
+                            <section class="post-info">
+                                <i class="fa-regular fa-clock svg-fill"></i>
+                                <p>@vm.Status</p>
+                            </section>
                         </section>
-                        <section class="post-info">
-                            <i class="fa-regular fa-clock svg-fill"></i>
-                            <p>@vm.Timestamp.ToString("mm':'ss")</p>
-                        </section>
-                        <section class="post-info">
-                            <i class="fa-regular fa-clock svg-fill"></i>
-                            <p>@vm.Status</p>
+                        <section class="post-description">
+                            <p>this was the request you made</p>
                         </section>
                     </section>
-                    <section class="post-description">
-                        <p>this was the request you made</p>
-                    </section>
-                </section>
-            }
+                }
+        </section>
     </section>
 </section>
